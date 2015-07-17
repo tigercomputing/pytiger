@@ -11,4 +11,4 @@ export PYBUILD_NAME = pytiger
 
 override_dh_auto_build:
 	dh_auto_build
-	PYTHONPATH=. sphinx-build -N -bhtml docs/ build/html
+	python setup.py build_sphinx
