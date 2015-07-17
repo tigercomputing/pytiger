@@ -1,0 +1,14 @@
+#!/usr/bin/make -f
+#DH_VERBOSE = 1
+
+DPKG_EXPORT_BUILDFLAGS = 1
+include /usr/share/dpkg/default.mk
+
+export PYBUILD_NAME = pytiger
+
+%:
+	dh $@  --with python2,sphinxdoc --buildsystem=pybuild
+
+override_dh_auto_build:
+	dh_auto_build
+	PYTHONPATH=. sphinx-build -N -bhtml docs/ build/html

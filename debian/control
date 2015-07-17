@@ -1,0 +1,25 @@
+Source: pytiger
+Section: python
+Priority: extra
+X-Python-Version: >= 2.3
+Maintainer: Jonathan Wiltshire <jmw@tiger-computing.co.uk>
+Build-Depends: debhelper (>= 9), dh-python, python-all, python-setuptools,
+ python-docutils, python-sphinx, python-mock
+Standards-Version: 3.9.6
+
+Package: python-pytiger
+Architecture: all
+Depends: ${python:Depends}, ${misc:Depends}
+Suggests: python-pytiger-doc
+Provides: ${python:Provides}
+X-Python-Version: ${python:Versions}
+Description: pytiger library
+ This is the Tiger Computing Ltd Python Utility library, pytiger.
+
+Package: python-pytiger-doc
+Section: doc
+Architecture: all
+Depends: ${sphinxdoc:Depends}, ${misc:Depends}
+Description: documentation for pytiger
+ Documentation for the Tiger Computing Ltd Python Utility
+ library, pytiger.

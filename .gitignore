@@ -1,0 +1,6 @@
+.coverage
+.pybuild
+*.pyc
+build/
+docs/_build
+
