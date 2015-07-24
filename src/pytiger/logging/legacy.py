@@ -18,6 +18,11 @@ These constants may be used anywhere that a *level* is expected by
 :class:`LegacySyslogger`.
 """
 
+# Copyright © 2015 Tiger Computing Ltd
+# This file is part of pytiger and distributed under the terms
+# of a BSD-like license
+# See the file COPYING for details
+
 import os
 import sys
 import syslog
