@@ -31,6 +31,9 @@ Style
 At a minimum, all code should be compliant with :pep:`8`. The
 :program:`flake8` tool provides additional code style hints.
 
+All files should be encoded to *utf-8* unless there are exceptional
+reasons to vary.
+
 Tests
 =====
 

@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 """
 Defines a number of log level attributes and :class:`LegacySyslogger` to
 carry out the real work.

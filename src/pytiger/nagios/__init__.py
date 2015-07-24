@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 """Nagio Utilities"""
 
 # Copyright © 2015 Tiger Computing Ltd

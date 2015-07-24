@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 # class cached_property is
 # Copyright (c) Django Software Foundation and individual contributors.
 # All rights reserved.
