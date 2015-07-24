@@ -9,6 +9,7 @@ import unittest
 import sys
 from mock import patch
 from . import NagiosCheck
+from StringIO import StringIO
 
 class TestNagiosCheck(unittest.TestCase):
 
@@ -41,20 +42,18 @@ class TestNagiosCheck(unittest.TestCase):
 
     @patch('sys.exit')
     def test_exit_messages(self, mock_exit):
-        if not hasattr(sys.stdout, "getvalue"):
-            self.fail("You must run this test under Python >=2.7 for stdout redirection to work")
         self.n.append('line 1')
         self.n.append('line 2')
-        self.n.exit()
-        output = sys.stdout.getvalue().strip()
+        with patch('sys.stdout', new=StringIO()) as out:
+            self.n.exit()
+        output = out.getvalue().strip()
         self.assertEquals(output, 'line 1, line 2')
 
     @patch('sys.exit')
     def test_exit_unset_nomessages(self, mock_exit):
-        if not hasattr(sys.stdout, "getvalue"):
-            self.fail("You must run this test under Python >=2.7 for stdout redirection to work")
-        self.n.exit()
-        output = sys.stdout.getvalue().strip()
+        with patch('sys.stdout', new=StringIO()) as out:
+            self.n.exit()
+        output = out.getvalue().strip()
         self.assertEquals(output, 'UNKNOWN: No state asserted')
         mock_exit.assert_called_once_with(3)
 
