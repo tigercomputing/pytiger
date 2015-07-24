@@ -103,7 +103,7 @@ class LegacySyslogger(object):
         """
         Whether to log to *syslog* (*True* or *False*)
         """
-        return self._log_to_stdout
+        return self._log_to_syslog
 
     @log_to_syslog.setter
     def log_to_syslog(self, value):
