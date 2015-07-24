@@ -42,7 +42,7 @@ LOGPREFIX = {
 }
 
 
-class LegacySyslogger:
+class LegacySyslogger(object):
     """
     An object that looks a bit like a Python logging object
     so that we can transition more easily later.
