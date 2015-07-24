@@ -8,7 +8,7 @@
 import unittest
 import sys
 from mock import patch
-from . import NagiosCheck
+from nagioscheck import NagiosCheck
 from StringIO import StringIO
 
 class TestNagiosCheck(unittest.TestCase):
