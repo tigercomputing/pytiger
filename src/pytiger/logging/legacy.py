@@ -24,7 +24,6 @@ These constants may be used anywhere that a *level* is expected by
 # of a BSD-like license
 # See the file COPYING for details
 
-import os
 import sys
 import syslog
 
