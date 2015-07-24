@@ -9,3 +9,9 @@ Functionality without a better home is kept in `pytiger.utils`.
 
  .. automodule:: pytiger.utils.decorators
     :members:
+
+:mod:`pytiger.utils.filesystem` -- filesystem utilities
+=======================================================
+
+ .. automodule:: pytiger.utils.filesystem
+    :members:
