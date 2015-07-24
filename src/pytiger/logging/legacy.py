@@ -60,14 +60,15 @@ class LegacySyslogger(object):
     E: Abandon ship, all ye who run this
     """
 
-    # minimum log level to send
-    _log_level = DEBUG
-    # log to stdout?
-    _log_to_stdout = True,
-    # log to syslog?
-    _log_to_syslog = True,
-    # log tag
-    _syslog_name = None
+    def __init__(self):
+        # minimum log level to send
+        self._log_level = DEBUG
+        # log to stdout?
+        self._log_to_stdout = True,
+        # log to syslog?
+        self._log_to_syslog = True,
+        # log tag
+        self._syslog_name = None
 
     @property
     def log_level(self):
