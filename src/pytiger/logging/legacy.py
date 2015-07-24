@@ -125,6 +125,12 @@ class LegacySyslogger(object):
         else:
             raise ValueError('syslog_name must be a string')
 
+    def _prefix_message(self, level, msg):
+        if level in LOGPREFIX:
+            return LOGPREFIX[level] + ": " + msg
+        else:
+            return msg
+
     def log(self, level, msg):
         """
         Print a message if its level is equal or less than
@@ -137,8 +143,7 @@ class LegacySyslogger(object):
 
         if level <= self.log_level:
             # Add prefix to message
-            if level in LOGPREFIX:
-                msg = LOGPREFIX[level] + ": " + msg
+            msg = self._prefix_message(level, msg)
             if self.log_to_stdout:
                 sys.stderr.write(msg + "\n")
             if self.log_to_syslog:
