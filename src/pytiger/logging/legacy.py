@@ -121,7 +121,10 @@ class LegacySyslogger(object):
 
     @syslog_name.setter
     def syslog_name(self, value):
-        self._syslog_name = value
+        if isinstance(value, basestring):
+            self._syslog_name = value
+        else:
+            raise ValueError('syslog_name must be a string')
 
     def log(self, level, msg):
         """
