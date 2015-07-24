@@ -3,4 +3,4 @@
 *.pyc
 build/
 docs/_build
-
+src/pytiger.egg-info
