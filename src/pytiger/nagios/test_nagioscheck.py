@@ -168,3 +168,11 @@ class TestNagiosCheck(unittest.TestCase):
             self.n._state = this_state
             self.assertFalse(self.n._transition(t))
             self.assertEqual(self.n.state, this_state)
+
+    def test_transition_with_message(self):
+        self.assertEqual(self.n.messages, [])
+        # Transition to ok with a message
+        # this test is NOT about the transition, only
+        # the message handling
+        self.n._transition(self.n.STATE_OK, 'some message')
+        self.assertEqual(self.n.messages, ['some message'])
