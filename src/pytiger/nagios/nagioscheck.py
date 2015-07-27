@@ -10,6 +10,8 @@ import sys
 
 class NagiosCheck(object):
     """
+    .. versionadded:: 1.0.0
+
     Abstracts a basic NRPE state machine
     so that a check can be reduced to its payload only.
 
@@ -34,7 +36,6 @@ class NagiosCheck(object):
     >>> n = NagiosCheck()
     >>> n.ok('Everything is fine')
     >>> n.exit()
-
     """
 
     # Note: these are subtly different to exit codes

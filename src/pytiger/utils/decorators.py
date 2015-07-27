@@ -7,6 +7,8 @@
 # Source: django.utils.functional.cached_property
 class cached_property(object):
     """
+    .. versionadded:: 1.0.0
+
     Decorator that converts a method with a single self argument into a
     property cached on the instance.
 

@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
 """
+.. versionadded:: 1.0.0
+
 Defines a number of log level attributes and :class:`LegacySyslogger` to
 carry out the real work.
 
