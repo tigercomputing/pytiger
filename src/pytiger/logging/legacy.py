@@ -69,61 +69,61 @@ class LegacySyslogger(object):
         # log tag
         self._syslog_name = None
 
-    @property
-    def log_level(self):
+    def __log_level_get(self):
         """
         Minimum level at which to emit a log entry
         """
         return self._log_level
 
-    @log_level.setter
-    def log_level(self, value):
+    def __log_level_set(self, value):
         if value in LOGLEVELS:
             self._log_level = value
         else:
             raise ValueError('%s not an acceptable log level' % value)
 
-    @property
-    def log_to_stdout(self):
+    log_level = property(fget=__log_level_get, fset=__log_level_set, doc="Minimum level at which to emit a log entry")
+
+    def __log_to_stdout_get(self):
         """
         Whether to log to *stdout* (*True* or *False*)
         """
         return self._log_to_stdout
 
-    @log_to_stdout.setter
-    def log_to_stdout(self, value):
+    def __log_to_stdout_set(self, value):
         if value in (True, False):
             self._log_to_stdout = value
         else:
             raise ValueError('log_to_stdout must be True or False')
 
-    @property
-    def log_to_syslog(self):
+    log_to_stdout = property(fget=__log_to_stdout_get, fset=__log_to_stdout_set, doc="Whether to log to *stdout* (*True* or *False*)")
+
+    def __log_to_syslog_get(self):
         """
         Whether to log to *syslog* (*True* or *False*)
         """
         return self._log_to_syslog
 
-    @log_to_syslog.setter
-    def log_to_syslog(self, value):
+    def __log_to_syslog_set(self, value):
         if value in (True, False):
             self._log_to_syslog = value
         else:
             raise ValueError('log_to_stdout must be True or False')
 
-    @property
-    def syslog_name(self):
+    log_to_syslog = property(fget=__log_to_syslog_get, fset=__log_to_syslog_set, doc="Whether to log to *syslog* (*True* or *False*)")
+
+    def __syslog_name_get(self):
         """
         Log tag used in syslog messages (string)
         """
         return self._syslog_name
 
-    @syslog_name.setter
-    def syslog_name(self, value):
+    def __syslog_name_set(self, value):
         if isinstance(value, basestring):
             self._syslog_name = value
         else:
             raise ValueError('syslog_name must be a string')
+
+    syslog_name = property(fget=__syslog_name_get, fset=__syslog_name_set, doc="Log tag used in syslog messages (string)")
 
     def _prefix_message(self, level, msg):
         if level in LOGPREFIX:
