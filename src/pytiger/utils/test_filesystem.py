@@ -14,15 +14,15 @@ class Testget_file_age(unittest.TestCase):
         self.assertRaises(TypeError, get_file_age(''))
 
     def test_run_incorrect_timestamp(self):
-        pass
+        self.assertTrue(False)
 
     def test_run_future_timestamp(self):
-        pass
+        self.assertTrue(False)
 
     def test_run_unowned_location(self):
-        pass
+        self.assertTrue(False)
     
 
     def test_run_correct_timestamp(self):
-        pass
+        self.assertTrue(False)
 
