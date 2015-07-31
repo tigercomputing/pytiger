@@ -23,6 +23,12 @@ class Test_get_file_age(unittest.TestCase):
     def test_invalid_filename(self):
         self.assertRaises(OSError, get_file_age, '')
 
+    @patch('time.time')
+    def test_age(self, stable_time):
+        touch(self.tempfile_name, timestamp=100)
+        stable_time.return_value = 150
+        self.assertEqual(get_file_age(self.tempfile_name), 50)
+
 
 class Test_touch(unittest.TestCase):
 
