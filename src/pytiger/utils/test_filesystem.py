@@ -51,3 +51,12 @@ class Test_touch(unittest.TestCase):
         test_file_name = self.tempdir+'/test_dir/test_file'
         touch(test_file_name, create_dirs=True)
         self.assertTrue(os.path.isfile(test_file_name))
+
+    def test_set_timestamp(self):
+        """Set a file timestamp"""
+        test_file_name = self.tempdir+'test_file'
+        stamp = 100
+        touch(test_file_name, timestamp=stamp)
+        s = os.stat(test_file_name)
+        self.assertEqual(stamp, s.st_atime)
+        self.assertEqual(stamp, s.st_mtime)

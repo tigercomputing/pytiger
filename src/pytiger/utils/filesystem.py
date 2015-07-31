@@ -18,10 +18,17 @@ def get_file_age(filename):
         now = time.time()
         return int(now - mtime)
 
-def touch(filename, create_dirs=False):
+def touch(filename, create_dirs=False, timestamp=None):
         """
-        Opens and closes filename, similarly to shell touch(1). Optionally
-        creates all parent directories if necessary.
+        Opens and closes *filename*, similarly to :program:`touch(1)`.
+        If *filename* is a nested path and *create_dirs* is true, all
+        intermediate directories will be created.
+
+        :param str filename: path to the file to touch
+        :param bool create_dirs: create all parent directories if necessary
+        :param int timestamp: UNIX timestamp for *mtime* and *atime*
+
+        .. versionadded:: 1.0.0
         """
 
         if create_dirs:
@@ -29,3 +36,6 @@ def touch(filename, create_dirs=False):
                 os.makedirs(os.path.dirname(filename))
         open(filename, 'w').close()
 
+        if timestamp:
+            # Set atime and mtime to timestamp
+            os.utime(filename, (timestamp, timestamp))
