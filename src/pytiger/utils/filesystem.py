@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
-"File System Utilities"
+"""
+A collection of useful file system utilities
+"""
 
 # Copyright © 2015 Tiger Computing Ltd
 # This file is part of pytiger and distributed under the terms
@@ -12,6 +14,10 @@ import time
 def get_file_age(filename):
         """
         Returns age of file in seconds
+
+        :param str filename: file to inspect
+
+        .. versionadded:: 1.0.0
         """
 
         mtime = os.path.getmtime(filename)
