@@ -9,7 +9,7 @@
 import os
 import time
 
-def get_file_age(self, filename):
+def get_file_age(filename):
         """
         Returns age of file in seconds
         """
@@ -18,7 +18,7 @@ def get_file_age(self, filename):
         now = time.time()
         return int(now - mtime)
 
-def touch(self, filename, create_dirs=False):
+def touch(filename, create_dirs=False):
         """
         Opens and closes filename, similarly to shell touch(1). Optionally
         creates all parent directories if necessary.
