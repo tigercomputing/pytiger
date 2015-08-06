@@ -65,6 +65,11 @@ class TestNagiosCheck(unittest.TestCase):
         self.n.append('line 2')
         self.assertEqual(self.n.messages, ['line 1', 'line 2'])
 
+    def test_message_append_blank(self):
+        self.assertEqual(self.n.messages, [])
+        self.n.append('')
+        self.assertEqual(self.n.messages, [])
+
     ####################
     # State
     def test_state(self):

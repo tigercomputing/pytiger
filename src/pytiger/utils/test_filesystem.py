@@ -52,9 +52,15 @@ class Test_touch(unittest.TestCase):
         test_file_name = self.tempdir+'/test_dir/test_file'
         self.assertRaises(IOError, touch, test_file_name)
 
-    def test_create_file_in_dir(self):
+    def test_create_file_in_new_dir(self):
         """Create a file in a directory with create_dirs"""
         test_file_name = self.tempdir+'/test_dir/test_file'
+        touch(test_file_name, create_dirs=True)
+        self.assertTrue(os.path.isfile(test_file_name))
+
+    def test_create_file_in_existing_dir(self):
+        test_file_name = self.tempdir+'/test_dir/test_file'
+        os.makedirs(self.tempdir+'/test_dir')
         touch(test_file_name, create_dirs=True)
         self.assertTrue(os.path.isfile(test_file_name))
 

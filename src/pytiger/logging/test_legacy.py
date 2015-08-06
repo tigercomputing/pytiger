@@ -116,3 +116,24 @@ class TestLegacySyslogger(unittest.TestCase):
         with patch('sys.stderr', new=StringIO()) as out:
             self.logger.log(legacy.DEBUG, 'test message')
         self.assertEqual(out.getvalue(), "D: test message\n")
+
+    @patch('syslog.syslog')
+    def test_log_not_to_stdout_or_syslog(self, mock_syslog):
+        self.logger.log_to_stdout = False
+        self.logger.log_to_syslog = False
+        with patch('sys.stderr', new=StringIO()) as out:
+            self.logger.log(legacy.DEBUG, 'test message')
+        self.assertEqual(out.getvalue(), "")
+        self.assertFalse(mock_syslog.called)
+
+    @patch('syslog.syslog')
+    def test_log_level_too_high(self, mock_syslog):
+        # Test that calling log with a higher log level
+        # than we are sensitive to results in no output
+        self.logger.log_level = legacy.INFO
+        self.logger.log_to_syslog = True
+        self.logger.log_to_stdout = True
+        with patch('sys.stderr', new=StringIO()) as out:
+            self.logger.log(legacy.DEBUG, 'test message')
+        self.assertNotEqual(out.getvalue(), "D: test message")
+        self.assertFalse(mock_syslog.called)
