@@ -21,16 +21,15 @@ class TestLegacySyslogger(unittest.TestCase):
         required_attributes = ('_log_level', '_log_to_stdout',
                                '_log_to_syslog', '_syslog_name',)
         for attr in required_attributes:
-            self.assertIn(attr, self.logger.__dict__,
+            self.assertTrue(attr in self.logger.__dict__,
                           "Required attribute {attr} is missing"
                           .format(attr=attr))
 
     ####################
     def test_property_log_level(self):
-        self.assertNotIn(-9999, legacy.LOGLEVELS,
+        self.assertFalse(-9999 in legacy.LOGLEVELS,
                          'This test needs checking: -9999 has become a valid log level')
-        with self.assertRaises(ValueError):
-            self.logger.log_level = -9999
+        self.assertRaises(ValueError, setattr, self.logger, 'log_level', -9999)
         for level in legacy.LOGLEVELS:
             self.logger.log_level = level
             self.assertEqual(level, self.logger.log_level)
@@ -45,16 +44,14 @@ class TestLegacySyslogger(unittest.TestCase):
 
     def test_property_log_to_syslog(self):
         for v in (None, '', 'string'):
-            with self.assertRaises(ValueError):
-                self.logger.log_to_syslog = v
+            self.assertRaises(ValueError, setattr, self.logger, 'log_to_syslog', v)
         for v in (True, False, True, False):
             self.logger.log_to_syslog = v
             self.assertEqual(v, self.logger.log_to_syslog)
 
     def test_property_syslog_name(self):
         for v in (True, False, 1, None):
-            with self.assertRaises(ValueError):
-                self.logger.syslog_name = v
+            self.assertRaises(ValueError, setattr, self.logger, 'syslog_name', v)
         self.logger.syslog_name = 'a_string'
         self.assertEqual(self.logger.syslog_name, 'a_string')
 
@@ -81,7 +78,7 @@ class TestLegacySyslogger(unittest.TestCase):
 
     ####################
     def test_prefix_message(self):
-        self.assertNotIn(-9999, legacy.LOGPREFIX,
+        self.assertFalse(-9999 in legacy.LOGPREFIX,
                          'This test needs checking: -9999 has become a valid log prefix index')
         self.assertEqual(self.logger._prefix_message(-9999, 'test'),
                          'test')

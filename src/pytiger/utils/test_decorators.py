@@ -43,7 +43,7 @@ class TestCachedProperty(unittest.TestCase):
         self.assertNotEqual(a.value, a2.value)
 
         # check that it behaves like a property when there's no instance
-        self.assertIsInstance(A.value, cached_property)
+        self.assertTrue(isinstance(A.value, cached_property))
 
         # check that overriding name works
         self.assertEqual(a.other, 1)
