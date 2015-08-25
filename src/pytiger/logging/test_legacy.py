@@ -36,8 +36,7 @@ class TestLegacySyslogger(unittest.TestCase):
 
     def test_property_log_to_stdout(self):
         for v in (None, '', 'string'):
-            with self.assertRaises(ValueError):
-                self.logger.log_to_stdout = v
+            self.assertRaises(ValueError, setattr, self.logger, 'log_to_stdout', v)
         for v in (True, False, True, False):
             self.logger.log_to_stdout = v
             self.assertEqual(v, self.logger.log_to_stdout)
