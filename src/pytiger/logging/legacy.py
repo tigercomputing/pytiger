@@ -26,6 +26,7 @@ These constants may be used anywhere that a *level* is expected by
 # of a BSD-like license
 # See the file COPYING for details
 
+import six
 import sys
 import syslog
 
@@ -120,7 +121,7 @@ class LegacySyslogger(object):
         return self._syslog_name
 
     def __syslog_name_set(self, value):
-        if isinstance(value, basestring):
+        if isinstance(value, six.string_types):
             self._syslog_name = value
         else:
             raise ValueError('syslog_name must be a string')

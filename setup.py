@@ -15,5 +15,8 @@ setup(name='pytiger',
       author_email='info@tiger-computing.co.uk',
       package_dir = {'': 'src'},
       packages=find_packages('src'),
+      install_requires=[
+        'six',
+      ]
 )
 

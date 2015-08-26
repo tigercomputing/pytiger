@@ -1,7 +1,7 @@
 import unittest
 import os
 from mock import patch
-from filesystem import get_file_age, touch
+from .filesystem import get_file_age, touch
 from tempfile import mkdtemp, mkstemp
 from shutil import rmtree
 

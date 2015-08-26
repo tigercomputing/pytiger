@@ -5,6 +5,7 @@
 # of a BSD-like license
 # See the file COPYING for details
 
+import six
 import sys
 
 
@@ -116,7 +117,7 @@ class NagiosCheck(object):
         exit code (this is the basis for the Nagios status)"""
         if self.state == self.STATE_UNSET and not self.messages:
             self.append('UNKNOWN: No state asserted')
-        print ', '.join(self.messages)
+        six.print_(', '.join(self.messages))
         sys.exit(self._exit_codes[self.state])
 
 

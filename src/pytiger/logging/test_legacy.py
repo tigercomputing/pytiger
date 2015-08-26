@@ -6,9 +6,10 @@
 # See the file COPYING for details
 
 import unittest
-import legacy
+from . import legacy
 from mock import patch
-from StringIO import StringIO
+import six
+from six import StringIO
 
 
 class TestLegacySyslogger(unittest.TestCase):
@@ -81,7 +82,7 @@ class TestLegacySyslogger(unittest.TestCase):
                          'This test needs checking: -9999 has become a valid log prefix index')
         self.assertEqual(self.logger._prefix_message(-9999, 'test'),
                          'test')
-        for level, prefix in legacy.LOGPREFIX.iteritems():
+        for level, prefix in legacy.LOGPREFIX.items():
             self.assertEqual(self.logger._prefix_message(level, 'test'), prefix + ': test')
 
     ####################

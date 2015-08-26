@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from decorators import *
+from .decorators import *
 import unittest
 
 class TestCachedProperty(unittest.TestCase):
