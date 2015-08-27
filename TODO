@@ -1,0 +1,3 @@
+ - a plugin loading class
+ - non-legacy logging using python's handlers
+
