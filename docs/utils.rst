@@ -15,3 +15,9 @@ Functionality without a better home is kept in `pytiger.utils`.
 
  .. automodule:: pytiger.utils.filesystem
     :members:
+
+:mod:`pytiger.utils.plugins` -- simple plugin loader
+====================================================
+
+ .. automodule:: pytiger.utils.plugins
+    :members:
