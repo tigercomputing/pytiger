@@ -49,3 +49,22 @@ class TestCachedProperty(unittest.TestCase):
         self.assertEqual(a.other, 1)
         self.assertTrue(callable(a.other_value))
 
+
+class TestSingleton(unittest.TestCase):
+    """
+    Test that objects decorated singleton are
+    indeed singletons.
+
+    This is a very basic function test, but could
+    probably be more intelligent.
+    """
+
+    @singleton
+    class TestSingletonObject():
+       def __init__(self, test_string=""):
+            self.test_string = test_string
+
+    def test_singleton_object(self):
+        A = self.TestSingletonObject("my test string")
+        B = self.TestSingletonObject("otherstring")
+        self.assertTrue(B.test_string, "my test string")

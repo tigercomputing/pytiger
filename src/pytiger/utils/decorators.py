@@ -28,3 +28,36 @@ class cached_property(object):
             return self
         res = instance.__dict__[self.name] = self.func(instance)
         return res
+
+
+class singleton(object):
+    """
+    .. versionadded:: 1.1
+
+    Decorator that ensures objects of a class are singleton,
+    i.e. there is only one such object in existance.
+
+    The first object of a class decorated with ``singleton`` is
+    instantiated as normal; for all others the first object is
+    returned instead.
+
+    Example:
+
+    >>> @singleton
+    >>> class TestSingletonObject():
+    ...   def __init__(self, test_string=""):
+    ...        self.test_string = test_string
+    >>> 
+    >>> def test_singleton_object():
+    >>>    A = self.TestSingletonObject("my test string")
+    >>>    B = self.TestSingletonObject("otherstring")
+    >>>    assert(B.test_string=="my test string")
+    """
+    def __init__(self, klass):
+        self.klass = klass
+        self.instance = None
+
+    def __call__(self, *args, **kwds):
+        if self.instance is None:
+            self.instance = self.klass(*args, **kwds)
+        return self.instance
