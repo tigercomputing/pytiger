@@ -1,7 +1,11 @@
 pytiger (1.0.1) UNRELEASED; urgency=medium
 
+  [ Chris Boot ]
   * Add pytiger.utils.plugins module.
   * Add python3-pytiger package.
+
+  [ Jonathan Wiltshire ]
+  * debian/copyright: update years
 
  -- Chris Boot <crb@tiger-computing.co.uk>  Tue, 07 Jun 2016 10:53:54 +0100
 

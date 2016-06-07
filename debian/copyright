@@ -2,7 +2,7 @@ Format: http://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
 Upstream-Name: pytiger
 
 Files: *
-Copyright: 2015 Tiger Computing Ltd
+Copyright: 2015-2016 Tiger Computing Ltd
 License: BSD-3-clause
   Redistribution and use in source and binary forms, with or without
   modification, are permitted provided that the following conditions are
