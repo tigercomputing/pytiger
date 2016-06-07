@@ -2,7 +2,7 @@
 Changes in pytiger
 ******************
 
-In development
+Release 1.1.0
 ==============
 
 * Python 3 compatibility
