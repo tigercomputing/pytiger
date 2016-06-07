@@ -7,7 +7,7 @@ include /usr/share/dpkg/default.mk
 export PYBUILD_NAME = pytiger
 
 %:
-	dh $@  --with python2,sphinxdoc --buildsystem=pybuild
+	dh $@  --with python2,python3,sphinxdoc --buildsystem=pybuild
 
 override_dh_auto_build:
 	dh_auto_build

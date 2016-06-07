@@ -1,6 +1,7 @@
 pytiger (1.0.1) UNRELEASED; urgency=medium
 
   * Add pytiger.utils.plugins module.
+  * Add python3-pytiger package.
 
  -- Chris Boot <crb@tiger-computing.co.uk>  Tue, 07 Jun 2016 10:53:54 +0100
 
