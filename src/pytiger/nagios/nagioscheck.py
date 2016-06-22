@@ -54,6 +54,10 @@ class NagiosCheck(object):
         self._messages = []
 
     def append(self, string):
+        """
+        Add a message to the output queue without expressing a state. This
+        is useful for information messages.
+        """
         if string:
             self._messages.append(string)
 
