@@ -17,6 +17,7 @@ Contents:
    utils
 
    contributing
+   building
    changes
 
 
