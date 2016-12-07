@@ -51,6 +51,19 @@ class TestNagiosCheck(unittest.TestCase):
         self.assertEquals(output, 'line 1, line 2')
 
     @patch('sys.exit')
+    def test_exit_messages_custom_separator(self, mock_exit):
+        self.n.append('line 1')
+        self.n.append('line 2')
+        with patch('sys.stdout', new=StringIO()) as out:
+            self.n.exit(separator=";")
+        output = out.getvalue().strip()
+        self.assertEquals(output, 'line 1;line 2')
+        with patch('sys.stdout', new=StringIO()) as out:
+            self.n.exit(separator="\n")
+        output = out.getvalue().strip()
+        self.assertEquals(output, 'line 1\nline 2')
+
+    @patch('sys.exit')
     def test_exit_unset_nomessages(self, mock_exit):
         with patch('sys.stdout', new=StringIO()) as out:
             self.n.exit()

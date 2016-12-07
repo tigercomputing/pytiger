@@ -116,12 +116,17 @@ class NagiosCheck(object):
         """
         return self._transition(self.STATE_UNKN, message)
 
-    def exit(self):
-        """Print the queued messages and exit with an appropriate
-        exit code (this is the basis for the Nagios status)"""
+    def exit(self, separator=', '):
+        """
+        Print the queued messages and exit with an appropriate
+        exit code (this is the basis for the Nagios status)
+
+        .. versionadded:: 1.2.0
+           Added the optional *separator* parameter.
+        """
         if self.state == self.STATE_UNSET and not self.messages:
             self.append('UNKNOWN: No state asserted')
-        six.print_(', '.join(self.messages))
+        six.print_(separator.join(self.messages))
         sys.exit(self._exit_codes[self.state])
 
 
