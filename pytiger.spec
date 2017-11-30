@@ -9,14 +9,20 @@
 
 %if 0%{?scl:1}
 
-%if "%{?scl}" == "python27"
+%if "%{scl}" == "python27"
 %global _want_python2 1
-%else
-%if "%{?scl}" == "rh-python34"
-%global _want_python3 1
-%else
-%{error: dont know SCL %{?scl}}
 %endif
+
+%if "%{scl}" == "rh-python34"
+%global _want_python3 1
+%endif
+
+%if "%{scl}" == "rh-python35"
+%global _want_python3 1
+%endif
+
+%if 0%{!?_want_python2:1} && 0%{!?_want_python3:1}
+%{error: dont know SCL %{scl}}
 %endif
 
 %else
@@ -32,7 +38,7 @@
 Name: %{?scl_prefix}%{_pkg_name}
 Summary: %{sum}
 Version: 1.1.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 Group: Development/Libraries
 License: BSD-3-clause
@@ -139,6 +145,9 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 
 %changelog
+* Thu Nov 20 2017 Chris Boot <crb@tiger-computing.co.uk> - 1.1.0-2
+- Add support for rh-python35 SCL. Make SCL selection a bit more generic.
+
 * Tue Nov 01 2016 Chris Boot <crb@tiger-computing.co.uk> - 1.1.0-1
 - First real RPM release for CentOS 6 and 7, plus 6+sclpy27 and 6+sclpy34.
 
