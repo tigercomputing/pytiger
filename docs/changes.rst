@@ -2,8 +2,8 @@
 Changes in pytiger
 ******************
 
-Release NEXT
-============
+Release 1.1.1
+=============
 
 * Deprecate nagios.NagiosClient.warn(), replace with warning() (#2)
 
