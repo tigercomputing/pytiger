@@ -49,7 +49,7 @@ master_doc = 'index'
 
 # General information about the project.
 project = u'pytiger'
-copyright = u'2015-2016, Tiger Computing Ltd'
+copyright = u'2015-2018, Tiger Computing Ltd'
 
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the
