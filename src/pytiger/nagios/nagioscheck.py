@@ -7,6 +7,7 @@
 
 import six
 import sys
+import warnings
 
 
 class NagiosCheck(object):
@@ -90,13 +91,23 @@ class NagiosCheck(object):
         """
         return self._transition(self.STATE_OK, message)
 
-    def warn(self, message=None):
+    def warning(self, message=None):
         """
         If the current state is unset or not worse than 'warning',
         set it to **STATE_WARN** (indicating that the check is
         outside acceptable parameters, but not service-affecting)
         """
         return self._transition(self.STATE_WARN, message)
+
+    def warn(self, message=None):
+        """
+        .. deprecated:: 1.1.1
+        Deprecated. This method was incorrectly named; use
+        :func:`warning` instead.
+        """
+        warnings.warn("warn() is deprecated, use warning() instead",
+                DeprecationWarning)
+        return self.warning(message)
 
     def critical(self, message=None):
         """

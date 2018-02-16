@@ -17,6 +17,13 @@ class TestNagiosCheck(unittest.TestCase):
     def setUp(self):
         self.n = NagiosCheck()
 
+    # Check deprecated function calls the real thing
+    @patch('warnings.warn')
+    def test_deprecated_warn(self, mock_warn):
+        self.n.warn()
+        self.assertTrue(mock_warn.called)
+        self.assertEqual(self.n.STATE_WARN, self.n.state)
+
     ####################
     @patch('sys.exit')
     def test_exit_unset(self, mock_exit):
@@ -30,8 +37,8 @@ class TestNagiosCheck(unittest.TestCase):
         mock_exit.assert_called_once_with(0)
 
     @patch('sys.exit')
-    def test_exit_warn(self, mock_exit):
-        self.n.warn()
+    def test_exit_warning(self, mock_exit):
+        self.n.warning()
         self.n.exit()
         mock_exit.assert_called_once_with(1)
 
@@ -92,7 +99,7 @@ class TestNagiosCheck(unittest.TestCase):
         self.assertEqual(self.n.STATE_OK, self.n.state)
         self.n.unknown()
         self.assertEqual(self.n.STATE_UNKN, self.n.state)
-        self.n.warn()
+        self.n.warning()
         self.assertEqual(self.n.STATE_WARN, self.n.state)
         self.n.critical()
         self.assertEqual(self.n.STATE_CRIT, self.n.state)
@@ -113,8 +120,8 @@ class TestNagiosCheck(unittest.TestCase):
         mock_transition.assert_called_once_with(self.n.STATE_UNKN, 'message')
 
     @patch('pytiger.nagios.NagiosCheck._transition')
-    def test_shortcut_warn(self, mock_transition):
-        self.n.warn('message')
+    def test_shortcut_warning(self, mock_transition):
+        self.n.warning('message')
         mock_transition.assert_called_once_with(self.n.STATE_WARN, 'message')
 
     @patch('pytiger.nagios.NagiosCheck._transition')
@@ -160,7 +167,7 @@ class TestNagiosCheck(unittest.TestCase):
             self.assertFalse(self.n._transition(t))
             self.assertEqual(self.n.state, this_state)
 
-    def test_transitions_warn(self):
+    def test_transitions_warning(self):
         this_state = self.n.STATE_WARN
         valid_targets = (this_state, self.n.STATE_CRIT,)
         invalid_targets = (self.n.STATE_UNSET, self.n.STATE_UNKN, self.n.STATE_OK)
