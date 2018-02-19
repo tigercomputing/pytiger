@@ -9,6 +9,7 @@ from __future__ import absolute_import
 
 import logging
 import logging.config
+import os.path
 import sys
 import syslog
 import textwrap
@@ -181,10 +182,14 @@ class TestSyslogHandler(unittest.TestCase):
         logging.config.fileConfig(StringIO(textwrap.dedent(conf)))
 
     def test_openlog_default(self):
+        # In Python 2.6 ident must be a string so we need to do what
+        # SyslogHandler.__init__() does to get an ident string.
+        ident = os.path.basename(sys.argv[0])
+
         with patch('syslog.openlog') as openlog:
             self.apply_config(self.config1)
             openlog.assert_called_once_with(
-                'setup.py', syslog.LOG_PID, syslog.LOG_USER)
+                ident, syslog.LOG_PID, syslog.LOG_USER)
 
     def test_openlog_ident(self):
         with patch('syslog.openlog') as openlog:

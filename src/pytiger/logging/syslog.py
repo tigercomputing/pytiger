@@ -152,6 +152,10 @@ class SyslogHandler(logging.Handler):
         self.formatter = formatter()
 
         if ident is None:
+            # In Python 2.6 ident is not an optional argument, so we have to
+            # emulate what glibc would do with it. We also can't simply make
+            # this a condition of running on older Python because that makes
+            # test coverage difficult to achieve.
             ident = os.path.basename(sys.argv[0])
 
         syslog.openlog(ident, options, facility)
