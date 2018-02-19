@@ -23,5 +23,10 @@ Logging
    .. automethod:: info
    .. automethod:: warning
 
+:mod:`pytiger.logging.syslog` -- Syslog logging handler
+=======================================================
 
+.. automodule:: pytiger.logging.syslog
+   :synopsis: Syslog logging handler for Python logging framework
+   :members:
 
