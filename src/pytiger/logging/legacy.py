@@ -26,6 +26,8 @@ These constants may be used anywhere that a *level* is expected by
 # of a BSD-like license
 # See the file COPYING for details
 
+from __future__ import absolute_import
+
 import six
 import sys
 import syslog
