@@ -2,6 +2,11 @@
 Changes in pytiger
 ******************
 
+Release NEXT
+============
+
+* New module: :mod:`pytiger.logging.syslog`
+
 Release 1.1.1
 =============
 
