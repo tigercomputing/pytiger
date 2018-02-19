@@ -184,14 +184,13 @@ class TestSyslogHandler(unittest.TestCase):
         with patch('syslog.openlog') as openlog:
             self.apply_config(self.config1)
             openlog.assert_called_once_with(
-                logoption=syslog.LOG_PID, facility=syslog.LOG_USER)
+                'setup.py', syslog.LOG_PID, syslog.LOG_USER)
 
     def test_openlog_ident(self):
         with patch('syslog.openlog') as openlog:
             self.apply_config(self.config2)
             openlog.assert_called_once_with(
-                "config2",
-                logoption=syslog.LOG_PID, facility=syslog.LOG_USER)
+                'config2', syslog.LOG_PID, syslog.LOG_USER)
 
     def test_logging(self):
         self.apply_config(self.config1)

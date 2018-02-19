@@ -14,6 +14,8 @@ the Python :mod:`syslog` module.
 from __future__ import absolute_import
 
 import logging
+import os.path
+import sys
 import syslog
 
 
@@ -78,8 +80,9 @@ def priority(priority):
             raise ValueError("Unknown priority: %r" % priority)
         return PRIORITY_NAMES[priority]
     else:
-        raise TypeError("Priority not an integer or a valid string: {}".format(
-            priority))
+        raise TypeError(
+            "Priority not an integer or a valid string: {0}".format(
+                priority))
 
 
 def facility(facility):
@@ -96,8 +99,9 @@ def facility(facility):
             raise ValueError("Unknown facility: %r" % facility)
         return FACILITY_NAMES[facility]
     else:
-        raise TypeError("Facility not an integer or a valid string: {}".format(
-            facility))
+        raise TypeError(
+            "Facility not an integer or a valid string: {0}".format(
+                facility))
 
 
 def encode_priority(fac, pri):
@@ -147,10 +151,10 @@ class SyslogHandler(logging.Handler):
         self.facility = facility
         self.formatter = formatter()
 
-        if ident:
-            syslog.openlog(ident, logoption=options, facility=facility)
-        else:
-            syslog.openlog(logoption=options, facility=facility)
+        if ident is None:
+            ident = os.path.basename(sys.argv[0])
+
+        syslog.openlog(ident, options, facility)
 
     def emit(self, record):
         """
