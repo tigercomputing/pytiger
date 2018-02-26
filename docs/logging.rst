@@ -4,6 +4,13 @@ Logging
 
 .. automodule:: pytiger.logging
 
+:mod:`pytiger.logging.config` -- Configure Python logging
+=========================================================
+
+.. automodule:: pytiger.logging.config
+   :synopsis: Configure the Python logging system following Tiger conventions
+   :members:
+
 :mod:`pytiger.logging.legacy` -- Legacy logging module
 ======================================================
 
