@@ -148,7 +148,7 @@ rm -rf $RPM_BUILD_ROOT
 * Fri Feb 16 2018 Jonathan Wiltshire <jmw@tiger-computing.co.uk> - 1.1.1-1
 - Replace nagios.NagiosCheck.warn() with warning().
 
-* Thu Nov 20 2017 Chris Boot <crb@tiger-computing.co.uk> - 1.1.0-2
+* Thu Nov 30 2017 Chris Boot <crb@tiger-computing.co.uk> - 1.1.0-2
 - Add support for rh-python35 SCL. Make SCL selection a bit more generic.
 
 * Tue Nov 01 2016 Chris Boot <crb@tiger-computing.co.uk> - 1.1.0-1
