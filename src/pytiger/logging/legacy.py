@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 """
 .. versionadded:: 1.0.0
+.. deprecated:: 1.2.0
 
 Defines a number of log level attributes and :class:`LegacySyslogger` to
 carry out the real work.
@@ -31,6 +32,7 @@ from __future__ import absolute_import
 import six
 import sys
 import syslog
+import warnings
 
 # Log levels
 ERROR = 0
@@ -51,6 +53,8 @@ class LegacySyslogger(object):
     An object that looks a bit like a Python logging object
     so that we can transition more easily later.
 
+    .. deprecated:: 1.2.0
+
     Example usage:
 
     >>> s = LegacySyslogger()
@@ -65,6 +69,8 @@ class LegacySyslogger(object):
     """
 
     def __init__(self):
+        warnings.warn('LegacySyslogger is deprecated', DeprecationWarning)
+
         # minimum log level to send
         self._log_level = DEBUG
         # log to stdout?
