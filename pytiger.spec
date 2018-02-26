@@ -37,8 +37,8 @@
 
 Name: %{?scl_prefix}%{_pkg_name}
 Summary: %{sum}
-Version: 1.1.0
-Release: 2%{?dist}
+Version: 1.1.1
+Release: 1%{?dist}
 
 Group: Development/Libraries
 License: BSD-3-clause
