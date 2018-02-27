@@ -7,7 +7,7 @@ Contributions to pytiger are welcome, but should follow some guidelines.
 Python Interpreter Version
 ==========================
 
-Python code should be backward-compatible to version 2.4 of the Python
+Python code should be backward-compatible to version 2.6 of the Python
 interpreter. This is subject to change as the major distributions we
 support change.
 

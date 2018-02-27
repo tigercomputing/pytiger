@@ -6,6 +6,7 @@ Release NEXT
 ============
 
 * New module: :mod:`pytiger.logging.syslog`
+* Set minimum Python interpreter version to 2.6
 
 Release 1.1.1
 =============
