@@ -105,8 +105,8 @@ class NagiosCheck(object):
         Deprecated. This method was incorrectly named; use
         :func:`warning` instead.
         """
-        warnings.warn("warn() is deprecated, use warning() instead",
-                DeprecationWarning)
+        warnings.warn('warn() is deprecated, use warning() instead',
+                      DeprecationWarning)
         return self.warning(message)
 
     def critical(self, message=None):
@@ -139,5 +139,3 @@ class NagiosCheck(object):
             self.append('UNKNOWN: No state asserted')
         six.print_(separator.join(self.messages))
         sys.exit(self._exit_codes[self.state])
-
-

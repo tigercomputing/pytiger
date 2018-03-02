@@ -14,7 +14,8 @@ Four valid log level constants are provided at the module level:
 
 * **ERROR** -- a problem that means execution cannot, or should not continue
 * **WARNING** -- an unexpected situtation but execution will continue
-* **INFO** -- informational output not indicative of a problem e.g. progress messages
+* **INFO** -- informational output not indicative of a problem e.g. progress
+  messages
 * **DEBUG** -- a message that should only be emitted when debugging code
 
 These constants may be used anywhere that a *level* is expected by
@@ -86,7 +87,8 @@ class LegacySyslogger(object):
         else:
             raise ValueError('%s not an acceptable log level' % value)
 
-    log_level = property(fget=__log_level_get, fset=__log_level_set, doc="Minimum level at which to emit a log entry")
+    log_level = property(fget=__log_level_get, fset=__log_level_set,
+                         doc="Minimum level at which to emit a log entry")
 
     def __log_to_stdout_get(self):
         """
@@ -100,7 +102,10 @@ class LegacySyslogger(object):
         else:
             raise ValueError('log_to_stdout must be True or False')
 
-    log_to_stdout = property(fget=__log_to_stdout_get, fset=__log_to_stdout_set, doc="Whether to log to *stdout* (*True* or *False*)")
+    log_to_stdout = property(fget=__log_to_stdout_get,
+                             fset=__log_to_stdout_set,
+                             doc="Whether to log to *stdout* (*True* or "
+                             "*False*)")
 
     def __log_to_syslog_get(self):
         """
@@ -114,7 +119,10 @@ class LegacySyslogger(object):
         else:
             raise ValueError('log_to_stdout must be True or False')
 
-    log_to_syslog = property(fget=__log_to_syslog_get, fset=__log_to_syslog_set, doc="Whether to log to *syslog* (*True* or *False*)")
+    log_to_syslog = property(fget=__log_to_syslog_get,
+                             fset=__log_to_syslog_set,
+                             doc="Whether to log to *syslog* (*True* or "
+                             "*False*)")
 
     def __syslog_name_get(self):
         """
@@ -128,7 +136,8 @@ class LegacySyslogger(object):
         else:
             raise ValueError('syslog_name must be a string')
 
-    syslog_name = property(fget=__syslog_name_get, fset=__syslog_name_set, doc="Log tag used in syslog messages (string)")
+    syslog_name = property(fget=__syslog_name_get, fset=__syslog_name_set,
+                           doc="Log tag used in syslog messages (string)")
 
     def _prefix_message(self, level, msg):
         if level in LOGPREFIX:

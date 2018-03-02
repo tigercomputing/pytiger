@@ -5,6 +5,8 @@
 # All rights reserved.
 # License: BSD
 # Source: django.utils.functional.cached_property
+
+
 class cached_property(object):
     """
     .. versionadded:: 1.0.0
@@ -44,14 +46,14 @@ class singleton(object):
     Example:
 
     >>> @singleton
-    >>> class TestSingletonObject():
+    ... class TestSingletonObject():
     ...   def __init__(self, test_string=""):
-    ...        self.test_string = test_string
-    >>> 
-    >>> def test_singleton_object():
-    >>>    A = self.TestSingletonObject("my test string")
-    >>>    B = self.TestSingletonObject("otherstring")
-    >>>    assert(B.test_string=="my test string")
+    ...     self.test_string = test_string
+    ...
+    >>> A = TestSingletonObject("my test string")
+    >>> B = TestSingletonObject("otherstring")
+    >>> assert(B.test_string=="my test string")
+    >>> assert(A is B)
     """
     def __init__(self, klass):
         self.klass = klass
