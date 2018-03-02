@@ -6,11 +6,10 @@
 # See the file COPYING for details
 
 import unittest
-import sys
 from mock import patch
 from .nagioscheck import NagiosCheck
-import six
 from six import StringIO
+
 
 class TestNagiosCheck(unittest.TestCase):
 
@@ -129,40 +128,42 @@ class TestNagiosCheck(unittest.TestCase):
         self.n.critical('message')
         mock_transition.assert_called_once_with(self.n.STATE_CRIT, 'message')
 
-
     ####################
     def test_transitions_unset(self):
         this_state = self.n.STATE_UNSET
-        valid_targets = (this_state, self.n.STATE_UNKN, self.n.STATE_OK, self.n.STATE_WARN, self.n.STATE_CRIT)
+        valid_targets = (this_state, self.n.STATE_UNKN, self.n.STATE_OK,
+                         self.n.STATE_WARN, self.n.STATE_CRIT)
         for t in valid_targets:
-            self.n = NagiosCheck() #Start fresh
+            self.n = NagiosCheck()  # Start fresh
             self.assertTrue(self.n._transition(t))
             self.assertEqual(self.n.state, t)
 
     def test_transitions_unknown(self):
         this_state = self.n.STATE_UNKN
-        valid_targets = (this_state, self.n.STATE_OK, self.n.STATE_WARN, self.n.STATE_CRIT)
+        valid_targets = (this_state, self.n.STATE_OK, self.n.STATE_WARN,
+                         self.n.STATE_CRIT)
         invalid_targets = (self.n.STATE_UNSET,)
         for t in valid_targets:
-            self.n = NagiosCheck() #Start fresh
+            self.n = NagiosCheck()  # Start fresh
             self.assertTrue(self.n._transition(t))
             self.assertEqual(self.n.state, t)
         for t in invalid_targets:
-            self.n = NagiosCheck() #Start fresh
+            self.n = NagiosCheck()  # Start fresh
             self.n._state = this_state
             self.assertFalse(self.n._transition(t))
             self.assertEqual(self.n.state, this_state)
 
     def test_transitions_ok(self):
         this_state = self.n.STATE_OK
-        valid_targets = (this_state, self.n.STATE_UNKN, self.n.STATE_WARN, self.n.STATE_CRIT)
+        valid_targets = (this_state, self.n.STATE_UNKN, self.n.STATE_WARN,
+                         self.n.STATE_CRIT)
         invalid_targets = (self.n.STATE_UNSET,)
         for t in valid_targets:
-            self.n = NagiosCheck() #Start fresh
+            self.n = NagiosCheck()  # Start fresh
             self.assertTrue(self.n._transition(t))
             self.assertEqual(self.n.state, t)
         for t in invalid_targets:
-            self.n = NagiosCheck() #Start fresh
+            self.n = NagiosCheck()  # Start fresh
             self.n._state = this_state
             self.assertFalse(self.n._transition(t))
             self.assertEqual(self.n.state, this_state)
@@ -170,13 +171,14 @@ class TestNagiosCheck(unittest.TestCase):
     def test_transitions_warning(self):
         this_state = self.n.STATE_WARN
         valid_targets = (this_state, self.n.STATE_CRIT,)
-        invalid_targets = (self.n.STATE_UNSET, self.n.STATE_UNKN, self.n.STATE_OK)
+        invalid_targets = (self.n.STATE_UNSET, self.n.STATE_UNKN,
+                           self.n.STATE_OK)
         for t in valid_targets:
-            self.n = NagiosCheck() #Start fresh
+            self.n = NagiosCheck()  # Start fresh
             self.assertTrue(self.n._transition(t))
             self.assertEqual(self.n.state, t)
         for t in invalid_targets:
-            self.n = NagiosCheck() #Start fresh
+            self.n = NagiosCheck()  # Start fresh
             self.n._state = this_state
             self.assertFalse(self.n._transition(t))
             self.assertEqual(self.n.state, this_state)
@@ -184,13 +186,14 @@ class TestNagiosCheck(unittest.TestCase):
     def test_transitions_critical(self):
         this_state = self.n.STATE_CRIT
         valid_targets = (this_state,)
-        invalid_targets = (self.n.STATE_UNSET, self.n.STATE_UNKN, self.n.STATE_OK)
+        invalid_targets = (self.n.STATE_UNSET, self.n.STATE_UNKN,
+                           self.n.STATE_OK)
         for t in valid_targets:
-            self.n = NagiosCheck() #Start fresh
+            self.n = NagiosCheck()  # Start fresh
             self.assertTrue(self.n._transition(t))
             self.assertEqual(self.n.state, t)
         for t in invalid_targets:
-            self.n = NagiosCheck() #Start fresh
+            self.n = NagiosCheck()  # Start fresh
             self.n._state = this_state
             self.assertFalse(self.n._transition(t))
             self.assertEqual(self.n.state, this_state)
