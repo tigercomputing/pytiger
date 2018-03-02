@@ -8,7 +8,6 @@
 import unittest
 from . import legacy
 from mock import patch
-import six
 from six import StringIO
 
 
@@ -23,13 +22,14 @@ class TestLegacySyslogger(unittest.TestCase):
                                '_log_to_syslog', '_syslog_name',)
         for attr in required_attributes:
             self.assertTrue(attr in self.logger.__dict__,
-                          "Required attribute {attr} is missing"
-                          .format(attr=attr))
+                            "Required attribute {attr} is missing"
+                            .format(attr=attr))
 
     ####################
     def test_property_log_level(self):
-        self.assertFalse(-9999 in legacy.LOGLEVELS,
-                         'This test needs checking: -9999 has become a valid log level')
+        self.assertFalse(
+            -9999 in legacy.LOGLEVELS,
+            'This test needs checking: -9999 has become a valid log level')
         self.assertRaises(ValueError, setattr, self.logger, 'log_level', -9999)
         for level in legacy.LOGLEVELS:
             self.logger.log_level = level
@@ -37,21 +37,24 @@ class TestLegacySyslogger(unittest.TestCase):
 
     def test_property_log_to_stdout(self):
         for v in (None, '', 'string'):
-            self.assertRaises(ValueError, setattr, self.logger, 'log_to_stdout', v)
+            self.assertRaises(ValueError, setattr, self.logger,
+                              'log_to_stdout', v)
         for v in (True, False, True, False):
             self.logger.log_to_stdout = v
             self.assertEqual(v, self.logger.log_to_stdout)
 
     def test_property_log_to_syslog(self):
         for v in (None, '', 'string'):
-            self.assertRaises(ValueError, setattr, self.logger, 'log_to_syslog', v)
+            self.assertRaises(ValueError, setattr, self.logger,
+                              'log_to_syslog', v)
         for v in (True, False, True, False):
             self.logger.log_to_syslog = v
             self.assertEqual(v, self.logger.log_to_syslog)
 
     def test_property_syslog_name(self):
         for v in (True, False, 1, None):
-            self.assertRaises(ValueError, setattr, self.logger, 'syslog_name', v)
+            self.assertRaises(ValueError, setattr, self.logger,
+                              'syslog_name', v)
         self.logger.syslog_name = 'a_string'
         self.assertEqual(self.logger.syslog_name, 'a_string')
 
@@ -78,12 +81,15 @@ class TestLegacySyslogger(unittest.TestCase):
 
     ####################
     def test_prefix_message(self):
-        self.assertFalse(-9999 in legacy.LOGPREFIX,
-                         'This test needs checking: -9999 has become a valid log prefix index')
+        self.assertFalse(
+            -9999 in legacy.LOGPREFIX,
+            'This test needs checking: -9999 has become a valid log prefix '
+            'index')
         self.assertEqual(self.logger._prefix_message(-9999, 'test'),
                          'test')
         for level, prefix in legacy.LOGPREFIX.items():
-            self.assertEqual(self.logger._prefix_message(level, 'test'), prefix + ': test')
+            self.assertEqual(self.logger._prefix_message(level, 'test'),
+                             prefix + ': test')
 
     ####################
     @patch('syslog.syslog')
@@ -92,7 +98,7 @@ class TestLegacySyslogger(unittest.TestCase):
         # so we'll assume that's the case
         # (that means we're also testing output with no tag, which
         # is ok for now)
-        self.logger.log_to_stdout = False # makes the test runner noisy
+        self.logger.log_to_stdout = False  # makes the test runner noisy
         self.logger.log(legacy.DEBUG, 'test message')
         mock_syslog.assert_called_once_with('D: test message')
 
@@ -101,7 +107,7 @@ class TestLegacySyslogger(unittest.TestCase):
         # if a log tag is configured, messages should include it
         self.logger.syslog_name = 'test_runner'
         self.logger.log_to_syslog = True
-        self.logger.log_to_stdout = False # makes the test runner noisy
+        self.logger.log_to_stdout = False  # makes the test runner noisy
         self.logger.log(legacy.DEBUG, 'test message')
         mock_syslog.assert_called_once_with('test_runner: D: test message')
 

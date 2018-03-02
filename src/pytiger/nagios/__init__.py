@@ -6,5 +6,4 @@
 # See the file COPYING for details
 
 # shortcut: from pytiger.nagios import NagiosCheck
-from .nagioscheck import NagiosCheck
-
+from .nagioscheck import NagiosCheck  # noqa: F401
