@@ -14,7 +14,7 @@ class Test_get_file_age(unittest.TestCase):
     def tearDown(self):
         try:
             os.remove(self.tempfile_name)
-        except OSError:
+        except OSError:  # pragma: no cover
             pass
 
     def test_without_filename(self):
