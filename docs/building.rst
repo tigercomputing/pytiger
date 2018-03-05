@@ -11,7 +11,8 @@ Debian
 Use standard build mechanisms such as ``dpkg-buildpackage``, ``debuild``,
 ``pbuilder`` or whatever works for you. The ``debian/`` directory is intended
 to track the current release of Debian at the time of the release of PyTiger.
-At the time of writing, this is Debian 8 (jessie).
+At the time of writing, this is
+`Debian 9 (stretch) <https://www.debian.org/releases/stable/>`_.
 
 For example:
 
