@@ -8,6 +8,7 @@ Release NEXT
 * New module: :mod:`pytiger.logging.syslog`
 * Set minimum Python interpreter version to 2.6
 * New module: :mod:`pytiger.logging.config`
+* New module: :mod:`pytiger.monitoring` (replacing :mod:`pytiger.nagios`)
 
 Release 1.1.1
 =============

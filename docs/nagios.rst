@@ -2,12 +2,6 @@
 Nagios
 ******
 
- .. automodule:: pytiger.nagios
-    :synopsis: Nagios
+.. deprecated:: 1.2.0
 
-:class:`pytiger.nagios.NagiosCheck` -- Nagios check state machine
-=================================================================
-
- .. autoclass:: pytiger.nagios.NagiosCheck
-    :members:
-    :member-order: groupwise
+This module is deprecated and replaced by :mod:`pytiger.monitoring`.

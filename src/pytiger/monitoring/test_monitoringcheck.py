@@ -7,23 +7,14 @@
 
 import unittest
 from mock import patch
-from .nagioscheck import NagiosCheck
-from pytiger.monitoring.monitoringcheck import MonitoringCheck
+from .monitoringcheck import MonitoringCheck
 from six import StringIO
 
-# The most important test here is to ensure a NagiosCheck object is a type
-# of MonitoringClass. The remaining tests are copied from there, and
-# ensure that the legacy behaviour does not change.
 
-
-class TestNagiosCheck(unittest.TestCase):
+class TestMonitoringCheck(unittest.TestCase):
 
     def setUp(self):
-        self.n = NagiosCheck()
-
-    # Check class parent
-    def test_deprecation_compat(self):
-        self.assertTrue(NagiosCheck == MonitoringCheck)
+        self.n = MonitoringCheck()
 
     # Check deprecated function calls the real thing
     @patch('warnings.warn')
@@ -117,22 +108,22 @@ class TestNagiosCheck(unittest.TestCase):
     # Tests do not check that the transition is valid,
     # only that _transitio() was called wih the right params
     # (We test the transitions separately)
-    @patch('pytiger.nagios.NagiosCheck._transition')
+    @patch('pytiger.monitoring.MonitoringCheck._transition')
     def test_shortcut_ok(self, mock_transition):
         self.n.ok('message')
         mock_transition.assert_called_once_with(self.n.STATE_OK, 'message')
 
-    @patch('pytiger.nagios.NagiosCheck._transition')
+    @patch('pytiger.monitoring.MonitoringCheck._transition')
     def test_shortcut_unknown(self, mock_transition):
         self.n.unknown('message')
         mock_transition.assert_called_once_with(self.n.STATE_UNKN, 'message')
 
-    @patch('pytiger.nagios.NagiosCheck._transition')
+    @patch('pytiger.monitoring.MonitoringCheck._transition')
     def test_shortcut_warning(self, mock_transition):
         self.n.warning('message')
         mock_transition.assert_called_once_with(self.n.STATE_WARN, 'message')
 
-    @patch('pytiger.nagios.NagiosCheck._transition')
+    @patch('pytiger.monitoring.MonitoringCheck._transition')
     def test_shortcut_critical(self, mock_transition):
         self.n.critical('message')
         mock_transition.assert_called_once_with(self.n.STATE_CRIT, 'message')
@@ -143,7 +134,7 @@ class TestNagiosCheck(unittest.TestCase):
         valid_targets = (this_state, self.n.STATE_UNKN, self.n.STATE_OK,
                          self.n.STATE_WARN, self.n.STATE_CRIT)
         for t in valid_targets:
-            self.n = NagiosCheck()  # Start fresh
+            self.n = MonitoringCheck()  # Start fresh
             self.assertTrue(self.n._transition(t))
             self.assertEqual(self.n.state, t)
 
@@ -153,11 +144,11 @@ class TestNagiosCheck(unittest.TestCase):
                          self.n.STATE_CRIT)
         invalid_targets = (self.n.STATE_UNSET,)
         for t in valid_targets:
-            self.n = NagiosCheck()  # Start fresh
+            self.n = MonitoringCheck()  # Start fresh
             self.assertTrue(self.n._transition(t))
             self.assertEqual(self.n.state, t)
         for t in invalid_targets:
-            self.n = NagiosCheck()  # Start fresh
+            self.n = MonitoringCheck()  # Start fresh
             self.n._state = this_state
             self.assertFalse(self.n._transition(t))
             self.assertEqual(self.n.state, this_state)
@@ -168,11 +159,11 @@ class TestNagiosCheck(unittest.TestCase):
                          self.n.STATE_CRIT)
         invalid_targets = (self.n.STATE_UNSET,)
         for t in valid_targets:
-            self.n = NagiosCheck()  # Start fresh
+            self.n = MonitoringCheck()  # Start fresh
             self.assertTrue(self.n._transition(t))
             self.assertEqual(self.n.state, t)
         for t in invalid_targets:
-            self.n = NagiosCheck()  # Start fresh
+            self.n = MonitoringCheck()  # Start fresh
             self.n._state = this_state
             self.assertFalse(self.n._transition(t))
             self.assertEqual(self.n.state, this_state)
@@ -183,11 +174,11 @@ class TestNagiosCheck(unittest.TestCase):
         invalid_targets = (self.n.STATE_UNSET, self.n.STATE_UNKN,
                            self.n.STATE_OK)
         for t in valid_targets:
-            self.n = NagiosCheck()  # Start fresh
+            self.n = MonitoringCheck()  # Start fresh
             self.assertTrue(self.n._transition(t))
             self.assertEqual(self.n.state, t)
         for t in invalid_targets:
-            self.n = NagiosCheck()  # Start fresh
+            self.n = MonitoringCheck()  # Start fresh
             self.n._state = this_state
             self.assertFalse(self.n._transition(t))
             self.assertEqual(self.n.state, this_state)
@@ -198,11 +189,11 @@ class TestNagiosCheck(unittest.TestCase):
         invalid_targets = (self.n.STATE_UNSET, self.n.STATE_UNKN,
                            self.n.STATE_OK)
         for t in valid_targets:
-            self.n = NagiosCheck()  # Start fresh
+            self.n = MonitoringCheck()  # Start fresh
             self.assertTrue(self.n._transition(t))
             self.assertEqual(self.n.state, t)
         for t in invalid_targets:
-            self.n = NagiosCheck()  # Start fresh
+            self.n = MonitoringCheck()  # Start fresh
             self.n._state = this_state
             self.assertFalse(self.n._transition(t))
             self.assertEqual(self.n.state, this_state)
