@@ -11,6 +11,13 @@ Logging
    :synopsis: Configure the Python logging system following Tiger conventions
    :members:
 
+:mod:`pytiger.logging.syslog` -- Syslog logging handler
+=======================================================
+
+.. automodule:: pytiger.logging.syslog
+   :synopsis: Syslog logging handler for Python logging framework
+   :members:
+
 :mod:`pytiger.logging.legacy` -- Legacy logging module
 ======================================================
 
@@ -29,11 +36,3 @@ Logging
    .. automethod:: error
    .. automethod:: info
    .. automethod:: warning
-
-:mod:`pytiger.logging.syslog` -- Syslog logging handler
-=======================================================
-
-.. automodule:: pytiger.logging.syslog
-   :synopsis: Syslog logging handler for Python logging framework
-   :members:
-
