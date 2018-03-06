@@ -1,3 +1,13 @@
+pytiger (1.2.0) unstable; urgency=medium
+
+  * Add a `separator` parameter to :func:`pytiger.monitoring.MonitoringCheck.exit`
+  * New module: :mod:`pytiger.logging.syslog`
+  * Set minimum Python interpreter version to 2.6
+  * New module: :mod:`pytiger.logging.config`
+  * New module: :mod:`pytiger.monitoring` (replacing :mod:`pytiger.nagios`)
+
+ -- Jonathan Wiltshire <jmw@jtiger-computing.co.uk>  Tue, 06 Mar 2018 12:10:06 +0000
+
 pytiger (1.1.1) unstable; urgency=medium
 
   * Replace nagios.NagiosCheck.warn() with warning()

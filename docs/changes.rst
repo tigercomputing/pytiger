@@ -2,8 +2,8 @@
 Changes in pytiger
 ******************
 
-Release NEXT
-============
+Release 1.2.0
+=============
 
 * Add a `separator` parameter to :func:`pytiger.monitoring.MonitoringCheck.exit`
 * New module: :mod:`pytiger.logging.syslog`

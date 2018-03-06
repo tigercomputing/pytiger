@@ -9,7 +9,7 @@
 from setuptools import setup, find_packages
 
 setup(name='pytiger',
-      version='1.1.1',
+      version='1.2.0',
       description='Tiger Computing Ltd Python Utilities',
       author='Tiger Computing Ltd',
       author_email='info@tiger-computing.co.uk',

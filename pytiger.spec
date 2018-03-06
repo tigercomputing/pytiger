@@ -37,7 +37,7 @@
 
 Name: %{?scl_prefix}%{_pkg_name}
 Summary: %{sum}
-Version: 1.1.1
+Version: 1.2.0
 Release: 1%{?dist}
 
 Group: Development/Libraries
@@ -145,6 +145,13 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 
 %changelog
+* Tue Mar 06 2018 Jonathan Wiltshire <jmw@tiger-computing.co.uk> - 1.2.0-1
+- Add a `separator` parameter to :func:`pytiger.monitoring.MonitoringCheck.exit`
+- New module: :mod:`pytiger.logging.syslog`
+- Set minimum Python interpreter version to 2.6
+- New module: :mod:`pytiger.logging.config`
+- New module: :mod:`pytiger.monitoring` (replacing :mod:`pytiger.nagios`)
+
 * Fri Feb 16 2018 Jonathan Wiltshire <jmw@tiger-computing.co.uk> - 1.1.1-1
 - Replace nagios.NagiosCheck.warn() with warning().
 
