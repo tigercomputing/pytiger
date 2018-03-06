@@ -102,6 +102,7 @@ class MonitoringCheck(object):
     def warn(self, message=None):
         """
         .. deprecated:: 1.2.0
+
         Deprecated. This method was incorrectly named; use
         :func:`warning` instead.
         """
