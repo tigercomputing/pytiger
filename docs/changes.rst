@@ -5,6 +5,7 @@ Changes in pytiger
 Release NEXT
 ============
 
+* Add a `separator` parameter to :func:`pytiger.monitoring.MonitoringCheck.exit`
 * New module: :mod:`pytiger.logging.syslog`
 * Set minimum Python interpreter version to 2.6
 * New module: :mod:`pytiger.logging.config`
