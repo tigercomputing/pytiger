@@ -1,3 +1,9 @@
+pytiger (1.2.1-1~tcl16.04+1) xenial-tcl; urgency=medium
+
+  * Rebuild for xenial-tcl.
+
+ -- Chris Boot <crb@tiger-computing.co.uk>  Mon, 30 Jul 2018 14:30:58 +0100
+
 pytiger (1.2.1-1) unstable; urgency=medium
 
   * Convert native package to 3.0 (quilt).
