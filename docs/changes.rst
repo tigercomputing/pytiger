@@ -2,6 +2,13 @@
 Changes in pytiger
 ******************
 
+Release 1.2.1
+=============
+
+* Correct code examples and formatting in :mod:`pytiger.logging`.
+* Remove Debian packaging from the ``master`` branch in preparation for the
+  conversion of the Debian package from a native package.
+
 Release 1.2.0
 =============
 
