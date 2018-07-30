@@ -17,3 +17,7 @@ override_dh_auto_build:
 override_dh_auto_clean:
 	dh_auto_clean
 	rm -rf src/pytiger.egg-info
+
+override_dh_auto_test:
+	python -m nose
+	python3 -m nose

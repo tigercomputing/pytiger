@@ -1,3 +1,11 @@
+pytiger (1.2.1-1~tcl8+1) jessie-tcl; urgency=medium
+
+  * Rebuild for jessie-tcl.
+  * Override dh_auto_test to avoid running doctests, which fail because of
+    logging fun.
+
+ -- Chris Boot <bootc@debian.org>  Mon, 30 Jul 2018 14:21:10 +0100
+
 pytiger (1.2.1-1) unstable; urgency=medium
 
   * Convert native package to 3.0 (quilt).
