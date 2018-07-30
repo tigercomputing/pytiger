@@ -11,14 +11,16 @@ Configure the Python :mod:`logging` system following Tiger conventions.
 This module, combined with the Python :mod:`logging` package, is the
 spiritual successor to the deprecated :mod:`pytiger.logging.legacy` module.
 
-Example usage:
+Example usage::
 
->>> pytiger.logging.config.basic_config()
->>> log = logging.getLogger(__name__)
->>> log.warning('Unable to biggle')
-W: Unable to biggle
->>> log.error('Abandon ship, all ye who run this')
-E: Abandon ship, all ye who run this
+    >>> import logging
+    >>> import pytiger.logging.config
+    >>> pytiger.logging.config.basic_config()
+    >>> log = logging.getLogger(__name__)
+    >>> log.warning('Unable to biggle')
+    W: Unable to biggle
+    >>> log.error('Abandon ship, all ye who run this')
+    E: Abandon ship, all ye who run this
 """
 
 from __future__ import absolute_import
