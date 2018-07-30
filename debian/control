@@ -1,8 +1,6 @@
 Source: pytiger
 Section: python
 Priority: extra
-X-Python-Version: >= 2.3
-X-Python3-Version: >= 3.2
 Maintainer: Jonathan Wiltshire <jmw@tiger-computing.co.uk>
 Uploaders: Chris Boot <crb@tiger-computing.co.uk>
 Build-Depends:
@@ -28,7 +26,6 @@ Architecture: all
 Depends: ${misc:Depends}, ${python:Depends}
 Suggests: python-pytiger-doc
 Provides: ${python:Provides}
-X-Python-Version: ${python:Versions}
 Description: pytiger library
  This is the Tiger Computing Ltd Python Utility library, pytiger.
 
@@ -36,8 +33,6 @@ Package: python3-pytiger
 Architecture: all
 Depends: ${misc:Depends}, ${python3:Depends}
 Suggests: python-pytiger-doc
-Provides: ${python:Provides}
-X-Python-Version: ${python:Versions}
 Description: pytiger library (Python3 version)
  This is the Tiger Computing Ltd Python Utility library, pytiger.
  .
@@ -47,6 +42,7 @@ Package: python-pytiger-doc
 Section: doc
 Architecture: all
 Depends: ${misc:Depends}, ${sphinxdoc:Depends}
+Built-Using: ${sphinxdoc:Built-Using}
 Description: documentation for pytiger
  Documentation for the Tiger Computing Ltd Python Utility
  library, pytiger.
