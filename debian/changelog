@@ -1,3 +1,9 @@
+pytiger (1.2.1-1~tcl9+1) stretch-tcl; urgency=medium
+
+  * Rebuild for stretch-tcl.
+
+ -- Chris Boot <bootc@debian.org>  Mon, 30 Jul 2018 14:18:15 +0100
+
 pytiger (1.2.1-1) unstable; urgency=medium
 
   * Convert native package to 3.0 (quilt).
