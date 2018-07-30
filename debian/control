@@ -14,13 +14,13 @@ Build-Depends:
  python-nose,
  python-setuptools,
  python-six,
- python-sphinx,
  python3-all,
  python3-coverage,
  python3-mock,
  python3-nose,
  python3-setuptools,
  python3-six,
+ python3-sphinx,
 Standards-Version: 3.9.6
 
 Package: python-pytiger
