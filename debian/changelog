@@ -1,3 +1,9 @@
+pytiger (1.2.1-1~tcl18.04+1) bionic-tcl; urgency=medium
+
+  * Rebuild for bionic-tcl.
+
+ -- Chris Boot <crb@tiger-computing.co.uk>  Mon, 30 Jul 2018 14:46:06 +0100
+
 pytiger (1.2.1-1) unstable; urgency=medium
 
   * Convert native package to 3.0 (quilt).
