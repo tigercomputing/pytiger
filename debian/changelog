@@ -1,4 +1,4 @@
-pytiger (1.2.1-1) UNRELEASED; urgency=medium
+pytiger (1.2.1-1) unstable; urgency=medium
 
   * Convert native package to 3.0 (quilt).
   * New upstream release:
@@ -12,7 +12,7 @@ pytiger (1.2.1-1) UNRELEASED; urgency=medium
     - Remove obsolete X-Python fields.
     - Add debian/gbp.conf for git-buildpackage.
 
- -- Chris Boot <crb@tiger-computing.co.uk>  Mon, 30 Jul 2018 12:56:54 +0100
+ -- Chris Boot <crb@tiger-computing.co.uk>  Mon, 30 Jul 2018 13:22:49 +0100
 
 pytiger (1.2.0) unstable; urgency=medium
 
