@@ -10,6 +10,7 @@ pytiger (1.2.1-1) UNRELEASED; urgency=medium
     - Use python3 to build Sphinx documentation.
     - Add Built-Using to python-pytiger-doc.
     - Remove obsolete X-Python fields.
+    - Add debian/gbp.conf for git-buildpackage.
 
  -- Chris Boot <crb@tiger-computing.co.uk>  Mon, 30 Jul 2018 12:56:54 +0100
 
