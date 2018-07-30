@@ -37,7 +37,7 @@
 
 Name: %{?scl_prefix}%{_pkg_name}
 Summary: %{sum}
-Version: 1.2.0
+Version: 1.2.1
 Release: 1%{?dist}
 
 Group: Development/Libraries
@@ -145,6 +145,9 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 
 %changelog
+* Mon Jul 30 2018 Chris Boot <crb@tiger-computing.co.uk> - 1.2.1-1
+- Correct code examples and formatting in pytiger.logging.
+
 * Tue Mar 06 2018 Jonathan Wiltshire <jmw@tiger-computing.co.uk> - 1.2.0-1
 - Add a `separator` parameter to :func:`pytiger.monitoring.MonitoringCheck.exit`
 - New module: :mod:`pytiger.logging.syslog`
