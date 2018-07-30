@@ -4,6 +4,7 @@ Priority: extra
 X-Python-Version: >= 2.3
 X-Python3-Version: >= 3.2
 Maintainer: Jonathan Wiltshire <jmw@tiger-computing.co.uk>
+Uploaders: Chris Boot <crb@tiger-computing.co.uk>
 Build-Depends:
  debhelper (>= 9),
  dh-python,
