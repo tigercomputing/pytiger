@@ -1,6 +1,7 @@
 ---
 stages:
   - build
+  - packages
 
 .build_template: &build_template
   stage: build
@@ -58,3 +59,67 @@ pages:
   artifacts:
     paths:
       - public
+
+rpm-source:
+  stage: build
+  tags:
+    - mock
+  script:
+    - if [ -n "$CI_COMMIT_TAG" ]; then
+        rpm_version="$CI_COMMIT_TAG";
+        rpm_release="1%{?dist}";
+      else
+        rpm_version="$(git describe --always --abbrev=12 | sed s/-/_/g)";
+        rpm_release="0%{?dist}";
+      fi
+    - git archive
+        --prefix "pytiger-${rpm_version}/"
+        --output "pytiger-${rpm_version}.tar.gz"
+        $CI_COMMIT_SHA
+    - mkdir -p rpmbuild/{SOURCES,SRPMS}
+    - mv "pytiger-${rpm_version}.tar.gz" rpmbuild/SOURCES
+    - >-
+        sed -i
+        -e "s/^Version: .*\$/Version: ${rpm_version}/"
+        -e "s/^Release: .*\$/Release: ${rpm_release}/"
+        pytiger.spec
+    - rpmbuild -bs
+        --define="_topdir ${CI_PROJECT_DIR}/rpmbuild"
+        --define="dist .git"
+        pytiger.spec
+    - mv rpmbuild/SRPMS/*.src.rpm .
+  artifacts:
+    paths:
+      - "*.src.rpm"
+
+.rpm-binary-template: &rpm-binary-template
+  stage: packages
+  variables:
+    GIT_STRATEGY: none
+    MOCK_CHROOT: $CI_JOB_NAME
+  tags:
+    - mock
+  dependencies:
+    - rpm-source
+  script:
+    - mock -r $MOCK_CHROOT --rebuild *.src.rpm
+    - mkdir $MOCK_CHROOT
+    - cp /var/lib/mock/$MOCK_CHROOT/result/* $MOCK_CHROOT/
+  artifacts:
+    paths:
+      - $MOCK_CHROOT
+
+epel-6-x86_64:
+  <<: *rpm-binary-template
+
+epel-6-sclpy27-x86_64:
+  <<: *rpm-binary-template
+
+epel-6-sclpy34-x86_64:
+  <<: *rpm-binary-template
+
+epel-7-x86_64:
+  <<: *rpm-binary-template
+
+epel-7-sclpy35-x86_64:
+  <<: *rpm-binary-template
