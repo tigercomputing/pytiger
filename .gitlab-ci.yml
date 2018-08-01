@@ -1,0 +1,60 @@
+---
+stages:
+  - build
+
+.build_template: &build_template
+  stage: build
+  variables:
+    COVERAGE_PKG: "coverage"
+  script:
+    - pip install -r requirements.txt
+    - pip install $COVERAGE_PKG flake8 nose mock
+    # - python3 setup.py check -mrs
+    # - python3 setup.py flake8
+    - python setup.py nosetests
+
+build-py2.6:
+  <<: *build_template
+  image: dockershelf/python:2.6
+
+build-py2.7:
+  <<: *build_template
+  image: python:2.7
+
+build-py3.2:
+  <<: *build_template
+  image: python:3.2
+  variables:
+    COVERAGE_PKG: "coverage<4"
+
+build-py3.3:
+  <<: *build_template
+  image: python:3.3
+
+build-py3.4:
+  <<: *build_template
+  image: python:3.4
+
+build-py3.5:
+  <<: *build_template
+  image: python:3.5
+
+build-py3.6:
+  <<: *build_template
+  image: python:3.6
+
+build-py3.7:
+  <<: *build_template
+  image: python:3.7
+
+pages:
+  stage: build
+  image: python:3.7
+  script:
+    - pip install -r requirements.txt
+    - pip install sphinx
+    - python setup.py build_sphinx
+    - mv build/sphinx/html public
+  artifacts:
+    paths:
+      - public
