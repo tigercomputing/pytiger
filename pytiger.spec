@@ -1,72 +1,33 @@
 %{?scl:%scl_package pytiger}
 %{!?scl:%global pkg_name %{name}}
 
-%if 0%{?rhel} && 0%{?rhel} <= 6
-%{!?__python2: %global __python2 /usr/bin/python2}
-%{!?python2_sitelib: %global python2_sitelib %(%{__python2} -c "from distutils.sysconfig import get_python_lib; print(get_python_lib())")}
-%{!?python2_sitearch: %global python2_sitearch %(%{__python2} -c "from distutils.sysconfig import get_python_lib; print(get_python_lib(1))")}
+%if 0%{?rhel} == 7 && 0%{!?scl:1}
+# This flag denotes we want to build python2 and python3 RPMs in one go, which
+# only applies on CentOS 7 for Python 2.7 and 3.4/3.6, and only if we are NOT
+# building for an SCL Python package.
+%global _want_dual_pythons 1
 %endif
 
-%if 0%{?scl:1}
-
-%if "%{scl}" == "python27"
-%global _want_python2 1
-%endif
-
-%if "%{scl}" == "rh-python34"
-%global _want_python3 1
-%endif
-
-%if "%{scl}" == "rh-python35"
-%global _want_python3 1
-%endif
-
-%if 0%{!?_want_python2:1} && 0%{!?_want_python3:1}
-%{error: dont know SCL %{scl}}
-%endif
-
-%else
-%global _want_python2 1
-%if 0%{?rhel} && 0%{?rhel} >= 7
-%global _want_python3 1
-%endif
-%endif
-
-%global _pkg_name pytiger
 %global sum Tiger Computing Ltd Python Utilities
 
-Name: %{?scl_prefix}%{_pkg_name}
+Name: %{?scl_prefix}pytiger
 Summary: %{sum}
 Version: 1.2.1
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 Group: Development/Libraries
 License: BSD-3-clause
 Source0: %{pkg_name}-%{version}.tar.gz
-Url: https://github.com/tigercomputing/%{_pkg_name}
+Url: https://github.com/tigercomputing/%{pkg_name}
 
 BuildArch: noarch
 BuildRequires: epel-rpm-macros
 
-# Common requirements for all python2 packages
-%if 0%{?_want_python2:1}
-BuildRequires: %{?scl_prefix}python2-devel
-BuildRequires: %{?scl_prefix}python-setuptools
-%endif
-
-# Common requirements for all python3 packages
-%if 0%{?_want_python3:1}
-BuildRequires: python3-rpm-macros
-%endif
-
-# Requirements for SCL packages only
-%if 0%{?scl:1}
 BuildRequires: %{?scl_prefix}python-devel
-Requires: %{?scl_prefix}python-six
-%endif
+BuildRequires: %{?scl_prefix}python-setuptools
 
 # Requirements for RHEL7 non-SCL only
-%if 0%{?rhel} && 0%{?rhel} >= 7 && 0%{!?scl:1}
+%if 0%{?_want_dual_pythons:1}
 BuildRequires: python%{python3_pkgversion}-devel
 BuildRequires: python%{python3_pkgversion}-setuptools
 %endif
@@ -74,77 +35,63 @@ BuildRequires: python%{python3_pkgversion}-setuptools
 %description
 This is the Tiger Computing Ltd Python Utility library, pytiger.
 
-%if 0%{?rhel} && 0%{!?scl:1}
-%package -n python2-%{_pkg_name}
+%package -n %{?scl_prefix}python-%{pkg_name}
 Summary: %{sum}
-%{?python_provide:%python_provide python2-%{_pkg_name}}
-Requires: python-six
+Requires: %{?scl_prefix}python-six
+%if 0%{!?scl:1}
+%{?python_provide:%python_provide python-%{pkg_name}}
+%endif
 
-%description -n python2-%{_pkg_name}
+%description -n %{?scl_prefix}python-%{pkg_name}
 This is the Tiger Computing Ltd Python Utility library, pytiger.
 
-%if 0%{?rhel} >= 7
-%package -n python%{python3_pkgversion}-%{_pkg_name}
+# For dual pythons, add in the extra binary package
+%if 0%{?_want_dual_pythons:1}
+%package -n python%{python3_pkgversion}-%{pkg_name}
 Summary: %{sum}
-%{?python_provide:%python_provide python%{python3_pkgversion}-%{_pkg_name}}
 Requires: python%{python3_pkgversion}-six
 
-%description -n python%{python3_pkgversion}-%{_pkg_name}
+%description -n python%{python3_pkgversion}-%{pkg_name}
 This is the Tiger Computing Ltd Python Utility library, pytiger.
 %endif
-
-%endif
-
-#%check
-#%{?scl:scl enable %{scl} - << \EOF}
-#%{__python2} setup.py nosetests
-#%{?scl:EOF}
 
 %prep
 %setup -n %{pkg_name}-%{version} -q
 
 %build
-%if 0%{?rhel} && 0%{?scl:1}
-%{?scl:scl enable %{scl} - << \EOF}
-%{?_want_python2:%{__python2} setup.py build ;}
-%{?_want_python3:%{__python3} setup.py build ;}
-%{?scl:EOF}
+%if 0%{?scl:1}
+%{?scl:scl enable %{scl} "}
+%{__python} setup.py build
+%{?scl:"}
 %else
-%{?_want_python2:%py2_build}
-%{?_want_python3:%py3_build}
+%py_build
+%{?_want_dual_pythons:%py3_build}
 %endif
 
 %install
 rm -rf $RPM_BUILD_ROOT
-%if 0%{?rhel} && 0%{?scl:1}
-%{?scl:scl enable %{scl} - << \EOF}
-%{?_want_python2:%{__python2} setup.py install -O1 --root=$RPM_BUILD_ROOT}
-%{?_want_python3:%{__python3} setup.py install -O1 --root=$RPM_BUILD_ROOT}
-%{?scl:EOF}
+%if 0%{?scl:1}
+%{?scl:scl enable %{scl} "}
+%{__python} setup.py install --skip-build --root $RPM_BUILD_ROOT \
+  --install-data=%{_datadir}
+%{?scl:"}
 %else
-%{?_want_python2:%py2_install}
-%{?_want_python3:%py3_install}
+%py_install
+%{?_want_dual_pythons:%py3_install}
 %endif
 
-%if 0%{?rhel} && 0%{?scl:1}
+%files -n %{?scl_prefix}python-%{pkg_name}
+%{python_sitelib}/*
 
-%files
-%{?_want_python2:%{python2_sitelib}/*}
-%{?_want_python3:%{python3_sitelib}/*}
-
-%else
-
-%files -n python2-%{_pkg_name}
-%{python2_sitelib}/*
-
-%if 0%{?rhel} >= 7
-%files -n python%{python3_pkgversion}-%{_pkg_name}
+%if 0%{?_want_dual_pythons:1}
+%files -n python%{python3_pkgversion}-%{pkg_name}
 %{python3_sitelib}/*
 %endif
 
-%endif
-
 %changelog
+* Thu Apr 04 2019 Chris Boot <crb@tiger-computing.co.uk> - 1.2.1-2
+- Overhaul the RPM spec file completely.
+
 * Mon Jul 30 2018 Chris Boot <crb@tiger-computing.co.uk> - 1.2.1-1
 - Correct code examples and formatting in pytiger.logging.
 
