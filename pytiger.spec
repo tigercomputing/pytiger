@@ -8,12 +8,18 @@
 %global _want_dual_pythons 1
 %endif
 
+# The current convention for Python 2.x non-SCL packages is to prefix them
+# python2-, so conditionally define a macro we can use to add this tag.
+%if 0%{!?scl:1}
+%global python2_pkgtag 2
+%endif
+
 %global sum Tiger Computing Ltd Python Utilities
 
 Name: %{?scl_prefix}pytiger
 Summary: %{sum}
 Version: 1.2.1
-Release: 2%{?dist}
+Release: 3%{?dist}
 
 Group: Development/Libraries
 License: BSD-3-clause
@@ -35,14 +41,14 @@ BuildRequires: python%{python3_pkgversion}-setuptools
 %description
 This is the Tiger Computing Ltd Python Utility library, pytiger.
 
-%package -n %{?scl_prefix}python-%{pkg_name}
+%package -n %{?scl_prefix}python%{?python2_pkgtag}-%{pkg_name}
 Summary: %{sum}
 Requires: %{?scl_prefix}python-six
 %if 0%{!?scl:1}
-%{?python_provide:%python_provide python-%{pkg_name}}
+%{?python_provide:%python_provide python%{?python2_pkgtag}-%{pkg_name}}
 %endif
 
-%description -n %{?scl_prefix}python-%{pkg_name}
+%description -n %{?scl_prefix}python%{?python2_pkgtag}-%{pkg_name}
 This is the Tiger Computing Ltd Python Utility library, pytiger.
 
 # For dual pythons, add in the extra binary package
@@ -80,7 +86,7 @@ rm -rf $RPM_BUILD_ROOT
 %{?_want_dual_pythons:%py3_install}
 %endif
 
-%files -n %{?scl_prefix}python-%{pkg_name}
+%files -n %{?scl_prefix}python%{?python2_pkgtag}-%{pkg_name}
 %{python_sitelib}/*
 
 %if 0%{?_want_dual_pythons:1}
@@ -89,6 +95,9 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 
 %changelog
+* Fri Apr 05 2019 Chris Boot <crb@tiger-computing.co.uk> - 1.2.1-3
+- Rename python-pytiger back to python2-pytiger for native Python 2.x builds.
+
 * Thu Apr 04 2019 Chris Boot <crb@tiger-computing.co.uk> - 1.2.1-2
 - Overhaul the RPM spec file completely.
 
