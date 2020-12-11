@@ -12,7 +12,6 @@ python:
   - "3.9"
 install:
   - pip install -r requirements.txt
-  - pip install 'coverage<4'
-  - pip install coveralls
+  - pip install coverage coveralls
 script: nosetests
 after_success: coveralls
