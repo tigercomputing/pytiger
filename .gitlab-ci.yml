@@ -14,10 +14,6 @@ stages:
     # - python3 setup.py flake8
     - python setup.py nosetests
 
-build-py2.6:
-  <<: *build_template
-  image: dockershelf/python:2.6
-
 build-py2.7:
   <<: *build_template
   image: python:2.7
@@ -47,6 +43,14 @@ build-py3.6:
 build-py3.7:
   <<: *build_template
   image: python:3.7
+
+build-py3.8:
+  <<: *build_template
+  image: python:3.8
+
+build-py3.9:
+  <<: *build_template
+  image: python:3.9
 
 pages:
   stage: build
@@ -121,10 +125,6 @@ rpm-source:
   artifacts:
     paths:
       - "*.rpm"
-
-epel-6-x86_64:
-  extends: .rpm-binary-template
-  image: centos:6
 
 epel-6-sclpy27-x86_64:
   extends: .rpm-binary-template
