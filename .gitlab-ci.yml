@@ -18,16 +18,6 @@ build-py2.7:
   <<: *build_template
   image: python:2.7
 
-build-py3.2:
-  <<: *build_template
-  image: python:3.2
-  variables:
-    COVERAGE_PKG: "coverage<4"
-
-build-py3.3:
-  <<: *build_template
-  image: python:3.3
-
 build-py3.4:
   <<: *build_template
   image: python:3.4
