@@ -126,18 +126,6 @@ rpm-source:
     paths:
       - "*.rpm"
 
-epel-6-sclpy27-x86_64:
-  extends: .rpm-binary-template
-  image: centos:6
-  variables:
-    rpm_scl: python27
-
-epel-6-sclpy36-x86_64:
-  extends: .rpm-binary-template
-  image: centos:6
-  variables:
-    rpm_scl: rh-python36
-
 epel-7-x86_64:
   extends: .rpm-binary-template
   image: centos:7
