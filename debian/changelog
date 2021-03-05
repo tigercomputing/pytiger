@@ -1,3 +1,10 @@
+pytiger (1.2.1-2) unstable; urgency=medium
+
+  * Debhelper compat level 10
+  * Standards version 4.5.1
+
+ -- Jonathan Wiltshire <jmw@tiger-computing.co.uk>  Fri, 05 Mar 2021 17:06:27 +0000
+
 pytiger (1.2.1-1) unstable; urgency=medium
 
   * Convert native package to 3.0 (quilt).
