@@ -6,12 +6,6 @@ Uploaders: Chris Boot <crb@tiger-computing.co.uk>
 Build-Depends:
  debhelper (>= 10),
  dh-python,
- python-all,
- python-coverage,
- python-mock,
- python-nose,
- python-setuptools,
- python-six,
  python3-all,
  python3-coverage,
  python3-mock,
@@ -20,14 +14,6 @@ Build-Depends:
  python3-six,
  python3-sphinx,
 Standards-Version: 4.5.1
-
-Package: python-pytiger
-Architecture: all
-Depends: ${misc:Depends}, ${python:Depends}
-Suggests: python-pytiger-doc
-Provides: ${python:Provides}
-Description: pytiger library
- This is the Tiger Computing Ltd Python Utility library, pytiger.
 
 Package: python3-pytiger
 Architecture: all

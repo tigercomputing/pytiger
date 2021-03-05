@@ -1,3 +1,10 @@
+pytiger (1.2.1-2~bpo11~tcl1) bullseye-tcl; urgency=medium
+
+  * Backport for bullsye-tcl
+  * Drop Python 2 binary package
+
+ -- Jonathan Wiltshire <jmw@tiger-computing.co.uk>  Fri, 05 Mar 2021 18:10:27 +0000
+
 pytiger (1.2.1-2) unstable; urgency=medium
 
   * Debhelper compat level 10
