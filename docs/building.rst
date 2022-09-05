@@ -34,10 +34,10 @@ dependencies on your build systems.
 Red Hat & CentOS
 ================
 
-Packages targetting the "native" python versions for Red Hat or CentOS can be
+Packages targeting the "native" python versions for Red Hat or CentOS can be
 built using standard tools such as ``rpmbuild`` or `Mock
 <https://github.com/rpm-software-management/mock/wiki>`_ with no specific
-configuation. The supplied spec file will generate:
+configuration. The supplied spec file will generate:
 
 * on Red Hat / CentOS 6.x:
 
