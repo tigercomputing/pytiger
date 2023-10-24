@@ -5,14 +5,12 @@ stages:
 
 .build_template: &build_template
   stage: build
-  variables:
-    COVERAGE_PKG: "coverage"
   script:
     - pip install -r requirements.txt
-    - pip install $COVERAGE_PKG flake8 nose mock
+    - pip install coverage flake8 mock pytest pytest-cov
     # - python3 setup.py check -mrs
-    # - python3 setup.py flake8
-    - python setup.py nosetests
+    - flake8 src/pytiger
+    - pytest --cov pytiger src/pytiger
 
 build-py2.7:
   <<: *build_template
