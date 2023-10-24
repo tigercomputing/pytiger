@@ -17,8 +17,8 @@
 
 Name: %{?scl_prefix}%{pkg_name}
 Summary: %{sum}
-Version: 1.2.1
-Release: 4%{?dist}
+Version: 1.2.2
+Release: 1%{?dist}
 
 Group: Development/Libraries
 License: BSD-3-clause
@@ -82,6 +82,11 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 
 %changelog
+* Tue Oct 24 2023 Chris Boot <crb@tiger-computing.co.uk> - 1.2.2-1
+- Add GitLab CI test runs and RPM building.
+- Overhaul the RPM spec file completely.
+- Refactor pytiger.utils.plugins for Python 3.12.
+
 * Wed Jan 13 2021 Jonathan Wiltshire <jmw@tiger-computing.co.uk> - 1.2.1-4
 - Build for Python 3 by default, and Python 2 as an option.
 
