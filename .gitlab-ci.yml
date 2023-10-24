@@ -132,6 +132,10 @@ epel-7-sclpy36-x86_64:
   variables:
     rpm_scl: rh-python36
 
-epel-8-x86_64:
+el-8-x86_64:
   extends: .rpm-binary-template
-  image: centos:8
+  image: rockylinux:8
+
+el-9-x86_64:
+  extends: .rpm-binary-template
+  image: rockylinux:9
