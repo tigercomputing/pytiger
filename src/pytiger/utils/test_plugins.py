@@ -59,8 +59,8 @@ class Test_plugins_load(unittest.TestCase):
         theta = sys.modules['pytiger.utils.plugins.test_theta']
         self.assertEqual(theta.foo, 'bar')
 
-        l = sys.modules['pytiger.utils.plugins.test_lambda']
-        self.assertEqual(l.lab, 'Black Mesa')
+        lamb = sys.modules['pytiger.utils.plugins.test_lambda']
+        self.assertEqual(lamb.lab, 'Black Mesa')
 
     def test_load_package(self):
         self._make_plugin('test_mypkg/__init__.py', """lemon = 'orange'\n""")

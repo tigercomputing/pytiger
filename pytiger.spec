@@ -1,25 +1,24 @@
-%{?scl:%scl_package pytiger}
-%{!?scl:%global pkg_name %{name}}
+%if 0%{?scl:1}
+%scl_package pytiger
+%global py_prefix %{scl_prefix}python
+%else
+%global pkg_name pytiger
+%global py_prefix python%{python3_pkgversion}
+%endif
 
 %if 0%{?rhel} == 7 && 0%{!?scl:1}
 # This flag denotes we want to build python2 and python3 RPMs in one go, which
-# only applies on CentOS 7 for Python 2.7 and 3.4/3.6, and only if we are NOT
+# only applies on CentOS 7 for Python 2.7 and 3.6, and only if we are NOT
 # building for an SCL Python package.
-%global _want_dual_pythons 1
-%endif
-
-# The current convention for Python 2.x non-SCL packages is to prefix them
-# python2-, so conditionally define a macro we can use to add this tag.
-%if 0%{!?scl:1}
-%global python2_pkgtag 2
+%global _want_python2 1
 %endif
 
 %global sum Tiger Computing Ltd Python Utilities
 
-Name: %{?scl_prefix}pytiger
+Name: %{?scl_prefix}%{pkg_name}
 Summary: %{sum}
-Version: 1.2.1
-Release: 4%{?dist}
+Version: 1.2.2
+Release: 1%{?dist}
 
 Group: Development/Libraries
 License: BSD-3-clause
@@ -28,36 +27,33 @@ Url: https://github.com/tigercomputing/%{pkg_name}
 
 BuildArch: noarch
 BuildRequires: epel-rpm-macros
-
-BuildRequires: python%{python3_pkgversion}-devel
-BuildRequires: python%{python3_pkgversion}-setuptools
+%{?scl:BuildRequires: %{scl_prefix}build}
+BuildRequires: %{py_prefix}-devel
+BuildRequires: %{py_prefix}-setuptools
 
 # Requirements for RHEL7 py2 only
-%if 0%{?_want_dual_pythons:1}
-BuildRequires: %{?scl_prefix}python-devel
-BuildRequires: %{?scl_prefix}python-setuptools
+%if 0%{?_want_python2:1}
+BuildRequires: python-devel
+BuildRequires: python-setuptools
 %endif
 
 %description
 This is the Tiger Computing Ltd Python Utility library, pytiger.
 
-%package -n python%{python3_pkgversion}-%{pkg_name}
+%package -n %{py_prefix}-%{pkg_name}
 Summary: %{sum}
-Requires: python%{python3_pkgversion}-six
+Requires: %{py_prefix}-six
 
-%description -n python%{python3_pkgversion}-%{pkg_name}
+%description -n %{py_prefix}-%{pkg_name}
 This is the Tiger Computing Ltd Python Utility library, pytiger.
 
 # For dual pythons, add in the extra binary package
-%if 0%{?_want_dual_pythons:1}
-%package -n %{?scl_prefix}python%{?python2_pkgtag}-%{pkg_name}
+%if 0%{?_want_python2:1}
+%package -n python2-%{pkg_name}
 Summary: %{sum}
-Requires: %{?scl_prefix}python-six
-%if 0%{!?scl:1}
-%{?python_provide:%python_provide python%{?python2_pkgtag}-%{pkg_name}}
-%endif
+Requires: python-six
 
-%description -n %{?scl_prefix}python%{?python2_pkgtag}-%{pkg_name}
+%description -n python2-%{pkg_name}
 This is the Tiger Computing Ltd Python Utility library, pytiger.
 %endif
 
@@ -65,36 +61,32 @@ This is the Tiger Computing Ltd Python Utility library, pytiger.
 %setup -n %{pkg_name}-%{version} -q
 
 %build
-%if 0%{?scl:1}
-%{?scl:scl enable %{scl} "}
-%{__python} setup.py build
-%{?scl:"}
-%else
-%py3_build
-%{?_want_dual_pythons:%py_build}
-%endif
+%{?scl:scl enable %{scl} - << \EOF}
+%{__python3} setup.py build
+%{?scl:EOF}
+%{?_want_python2:%{__python} setup.py build}
 
 %install
 rm -rf $RPM_BUILD_ROOT
-%if 0%{?scl:1}
-%{?scl:scl enable %{scl} "}
-%{__python} setup.py install --skip-build --root $RPM_BUILD_ROOT \
-  --install-data=%{_datadir}
-%{?scl:"}
-%else
-%py3_install
-%{?_want_dual_pythons:%py_install}
-%endif
+%{?scl:scl enable %{scl} - << \EOF}
+%{__python3} setup.py install -O1 --skip-build --root $RPM_BUILD_ROOT
+%{?scl:EOF}
+%{?_want_python2:%{__python} setup.py install -O1 --skip-build --root $RPM_BUILD_ROOT}
 
-%files -n python%{python3_pkgversion}-%{pkg_name}
+%files -n %{py_prefix}-%{pkg_name}
 %{python3_sitelib}/*
 
-%if 0%{?_want_dual_pythons:1}
-%files -n %{?scl_prefix}python%{?python2_pkgtag}-%{pkg_name}
+%if 0%{?_want_python2:1}
+%files -n python2-%{pkg_name}
 %{python_sitelib}/*
 %endif
 
 %changelog
+* Tue Oct 24 2023 Chris Boot <crb@tiger-computing.co.uk> - 1.2.2-1
+- Add GitLab CI test runs and RPM building.
+- Overhaul the RPM spec file completely.
+- Refactor pytiger.utils.plugins for Python 3.12.
+
 * Wed Jan 13 2021 Jonathan Wiltshire <jmw@tiger-computing.co.uk> - 1.2.1-4
 - Build for Python 3 by default, and Python 2 as an option.
 

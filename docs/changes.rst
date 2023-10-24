@@ -2,6 +2,13 @@
 Changes in pytiger
 ******************
 
+Release 1.2.2
+=============
+
+ * Add GitLab CI test runs and RPM building.
+ * Overhaul the RPM spec file completely.
+ * Refactor :mod:`pytiger.utils.plugins` for Python 3.12.
+
 Release 1.2.1
 =============
 
