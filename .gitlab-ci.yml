@@ -58,8 +58,7 @@ pages:
   script:
     - pip install -r requirements.txt
     - pip install sphinx
-    - python setup.py build_sphinx
-    - mv build/sphinx/html public
+    - sphinx-build docs public
   artifacts:
     paths:
       - public
