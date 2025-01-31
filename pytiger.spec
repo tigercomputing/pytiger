@@ -41,9 +41,10 @@ rm -rf $RPM_BUILD_ROOT
 %{python3_sitelib}/*
 
 %changelog
-* Fri Jan 31 2025 Chris Boot <crb@tiger-computing.co.uk> - 1.2.3-1
+* Fri Jan 31 2025 Chris Boot <crb@tiger-computing.co.uk> - 2.0.0-1
 - Fix pytiger.logging.config Python 3.13 compatbility.
 - Remove all CentOS 7 packages, including SCL.
+- Remove deprecated pytiger.logging.legacy module.
 
 * Tue Oct 24 2023 Chris Boot <crb@tiger-computing.co.uk> - 1.2.2-1
 - Add GitLab CI test runs and RPM building.

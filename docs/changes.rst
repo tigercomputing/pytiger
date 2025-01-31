@@ -2,11 +2,12 @@
 Changes in pytiger
 ******************
 
-Release 1.2.3
+Release 2.0.0
 =============
 
  * Fix :mod:`pytiger.logging.config` Python 3.13 compatibility.
  * Remove all CentOS 7 packages, including SCL.
+ * Remove deprecated :mod:`pytiger.logging.legacy` module.
 
 Release 1.2.2
 =============

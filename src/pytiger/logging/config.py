@@ -8,9 +8,6 @@
 
 Configure the Python :mod:`logging` system following Tiger conventions.
 
-This module, combined with the Python :mod:`logging` package, is the
-spiritual successor to the deprecated :mod:`pytiger.logging.legacy` module.
-
 Example usage::
 
     >>> import logging
