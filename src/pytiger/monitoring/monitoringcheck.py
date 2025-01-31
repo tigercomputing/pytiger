@@ -5,7 +5,6 @@
 # of a BSD-like license
 # See the file COPYING for details
 
-import six
 import sys
 
 
@@ -126,5 +125,5 @@ class MonitoringCheck(object):
         """
         if self.state == self.STATE_UNSET and not self.messages:
             self.append('UNKNOWN: No state asserted')
-        six.print_(separator.join(self.messages))
+        print(separator.join(self.messages))
         sys.exit(self._exit_codes[self.state])

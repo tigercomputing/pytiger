@@ -8,7 +8,7 @@
 import unittest
 from mock import patch
 from .monitoringcheck import MonitoringCheck
-from six import StringIO
+from io import StringIO
 
 
 class TestMonitoringCheck(unittest.TestCase):

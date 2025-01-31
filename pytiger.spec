@@ -22,7 +22,6 @@ This is the Tiger Computing Ltd Python Utility library, pytiger.
 
 %package -n %{py_prefix}-%{pkg_name}
 Summary: %{sum}
-Requires: %{py_prefix}-six
 
 %description -n %{py_prefix}-%{pkg_name}
 This is the Tiger Computing Ltd Python Utility library, pytiger.
@@ -42,11 +41,12 @@ rm -rf $RPM_BUILD_ROOT
 
 %changelog
 * Fri Jan 31 2025 Chris Boot <crb@tiger-computing.co.uk> - 2.0.0-1
-- Fix pytiger.logging.config Python 3.13 compatbility.
+- Drop Python 2 compatibility.
 - Remove all CentOS 7 packages, including SCL.
 - Remove deprecated pytiger.logging.legacy module.
 - Remove deprecated pytiger.nagios module.
 - Remove deprecated pytiger.monitoring.MonitoringCheck.warn method.
+- Fix pytiger.logging.config Python 3.13 compatbility.
 
 * Tue Oct 24 2023 Chris Boot <crb@tiger-computing.co.uk> - 1.2.2-1
 - Add GitLab CI test runs and RPM building.

@@ -6,15 +6,10 @@ stages:
 .build_template: &build_template
   stage: build
   script:
-    - pip install -r requirements.txt
     - pip install coverage flake8 mock pytest pytest-cov
     # - python3 setup.py check -mrs
     - flake8 src/pytiger
     - pytest --cov pytiger src/pytiger
-
-build-py2.7:
-  <<: *build_template
-  image: python:2.7
 
 build-py3.4:
   <<: *build_template
@@ -60,7 +55,6 @@ pages:
   stage: build
   image: python:3.13
   script:
-    - pip install -r requirements.txt
     - pip install sphinx
     - sphinx-build docs public
   artifacts:
