@@ -109,13 +109,11 @@ rpm-source:
   before_script:
     - yum -y install
         epel-release
-        ${rpm_scl:+centos-release-scl}
     # https://wiki.rockylinux.org/rocky/repo/#notes-on-crb
     - /usr/bin/crb enable || true
     - yum -y install
         epel-rpm-macros
         rpm-build
-        ${rpm_scl:+${rpm_scl}-build}
     - |
       yum -y install $( \
         rpmbuild --rebuild *.src.rpm 2>&1 | \
@@ -130,16 +128,6 @@ rpm-source:
   artifacts:
     paths:
       - "*.rpm"
-
-epel-7-x86_64:
-  extends: .rpm-binary-template
-  image: centos:7
-
-epel-7-sclpy36-x86_64:
-  extends: .rpm-binary-template
-  image: centos:7
-  variables:
-    rpm_scl: rh-python36
 
 el-8-x86_64:
   extends: .rpm-binary-template

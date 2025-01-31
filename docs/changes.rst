@@ -6,6 +6,7 @@ Release 1.2.3
 =============
 
  * Fix :mod:`pytiger.logging.config` Python 3.13 compatibility.
+ * Remove all CentOS 7 packages, including SCL.
 
 Release 1.2.2
 =============

@@ -1,21 +1,8 @@
-%if 0%{?scl:1}
-%scl_package pytiger
-%global py_prefix %{scl_prefix}python
-%else
 %global pkg_name pytiger
 %global py_prefix python%{python3_pkgversion}
-%endif
-
-%if 0%{?rhel} == 7 && 0%{!?scl:1}
-# This flag denotes we want to build python2 and python3 RPMs in one go, which
-# only applies on CentOS 7 for Python 2.7 and 3.6, and only if we are NOT
-# building for an SCL Python package.
-%global _want_python2 1
-%endif
-
 %global sum Tiger Computing Ltd Python Utilities
 
-Name: %{?scl_prefix}%{pkg_name}
+Name: %{pkg_name}
 Summary: %{sum}
 Version: 1.2.2
 Release: 1%{?dist}
@@ -27,15 +14,8 @@ Url: https://github.com/tigercomputing/%{pkg_name}
 
 BuildArch: noarch
 BuildRequires: epel-rpm-macros
-%{?scl:BuildRequires: %{scl_prefix}build}
 BuildRequires: %{py_prefix}-devel
 BuildRequires: %{py_prefix}-setuptools
-
-# Requirements for RHEL7 py2 only
-%if 0%{?_want_python2:1}
-BuildRequires: python-devel
-BuildRequires: python-setuptools
-%endif
 
 %description
 This is the Tiger Computing Ltd Python Utility library, pytiger.
@@ -47,43 +27,23 @@ Requires: %{py_prefix}-six
 %description -n %{py_prefix}-%{pkg_name}
 This is the Tiger Computing Ltd Python Utility library, pytiger.
 
-# For dual pythons, add in the extra binary package
-%if 0%{?_want_python2:1}
-%package -n python2-%{pkg_name}
-Summary: %{sum}
-Requires: python-six
-
-%description -n python2-%{pkg_name}
-This is the Tiger Computing Ltd Python Utility library, pytiger.
-%endif
-
 %prep
 %setup -n %{pkg_name}-%{version} -q
 
 %build
-%{?scl:scl enable %{scl} - << \EOF}
 %{__python3} setup.py build
-%{?scl:EOF}
-%{?_want_python2:%{__python} setup.py build}
 
 %install
 rm -rf $RPM_BUILD_ROOT
-%{?scl:scl enable %{scl} - << \EOF}
 %{__python3} setup.py install -O1 --skip-build --root $RPM_BUILD_ROOT
-%{?scl:EOF}
-%{?_want_python2:%{__python} setup.py install -O1 --skip-build --root $RPM_BUILD_ROOT}
 
 %files -n %{py_prefix}-%{pkg_name}
 %{python3_sitelib}/*
 
-%if 0%{?_want_python2:1}
-%files -n python2-%{pkg_name}
-%{python_sitelib}/*
-%endif
-
 %changelog
 * Fri Jan 31 2025 Chris Boot <crb@tiger-computing.co.uk> - 1.2.3-1
 - Fix pytiger.logging.config Python 3.13 compatbility.
+- Remove all CentOS 7 packages, including SCL.
 
 * Tue Oct 24 2023 Chris Boot <crb@tiger-computing.co.uk> - 1.2.2-1
 - Add GitLab CI test runs and RPM building.
