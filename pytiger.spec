@@ -82,6 +82,9 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 
 %changelog
+* Fri Jan 31 2025 Chris Boot <crb@tiger-computing.co.uk> - 1.2.3-1
+- Fix pytiger.logging.config Python 3.13 compatbility.
+
 * Tue Oct 24 2023 Chris Boot <crb@tiger-computing.co.uk> - 1.2.2-1
 - Add GitLab CI test runs and RPM building.
 - Overhaul the RPM spec file completely.

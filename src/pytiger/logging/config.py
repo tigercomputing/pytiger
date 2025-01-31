@@ -91,40 +91,36 @@ def basic_config(fmt=None, datefmt=None, level=None, stderr=True,
     """
     root = logging.getLogger()
 
-    logging._acquireLock()
-    try:
-        # Do nothing if the root logger already has handlers configured
-        if len(root.handlers) == 0:
-            ltf = LevelTagFilter()
+    # Do nothing if the root logger already has handlers configured
+    if len(root.handlers) == 0:
+        ltf = LevelTagFilter()
 
-            if fmt is None:
-                fmt = TCL_FORMAT
+        if fmt is None:
+            fmt = TCL_FORMAT
 
-            # Configure output to stderr if desired
-            if stderr:
-                h = logging.StreamHandler()
-                h.setFormatter(logging.Formatter(fmt, datefmt))
-                h.addFilter(ltf)
+        # Configure output to stderr if desired
+        if stderr:
+            h = logging.StreamHandler()
+            h.setFormatter(logging.Formatter(fmt, datefmt))
+            h.addFilter(ltf)
 
-                if stderr_level is not None:
-                    h.setLevel(stderr_level)
+            if stderr_level is not None:
+                h.setLevel(stderr_level)
 
-                root.addHandler(h)
+            root.addHandler(h)
 
-            # Configure output to syslog if desired
-            if syslog:
-                h = SyslogHandler()
-                h.setFormatter(SyslogFormatter(fmt, datefmt))
-                h.addFilter(ltf)
+        # Configure output to syslog if desired
+        if syslog:
+            h = SyslogHandler()
+            h.setFormatter(SyslogFormatter(fmt, datefmt))
+            h.addFilter(ltf)
 
-                if syslog_level is not None:
-                    h.setLevel(syslog_level)
+            if syslog_level is not None:
+                h.setLevel(syslog_level)
 
-                root.addHandler(h)
+            root.addHandler(h)
 
-            # Set the standard log level threshold for the root logger
-            if level is None:
-                level = logging.INFO
-            root.setLevel(level)
-    finally:
-        logging._releaseLock()
+        # Set the standard log level threshold for the root logger
+        if level is None:
+            level = logging.INFO
+        root.setLevel(level)

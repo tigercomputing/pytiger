@@ -2,6 +2,11 @@
 Changes in pytiger
 ******************
 
+Release 1.2.3
+=============
+
+ * Fix :mod:`pytiger.logging.config` Python 3.13 compatibility.
+
 Release 1.2.2
 =============
 

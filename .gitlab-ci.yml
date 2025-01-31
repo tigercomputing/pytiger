@@ -52,9 +52,13 @@ build-py3.12:
   <<: *build_template
   image: python:3.12
 
+build-py3.13:
+  <<: *build_template
+  image: python:3.13
+
 pages:
   stage: build
-  image: python:3.12
+  image: python:3.13
   script:
     - pip install -r requirements.txt
     - pip install sphinx
