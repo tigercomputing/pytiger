@@ -46,6 +46,7 @@ rm -rf $RPM_BUILD_ROOT
 - Remove all CentOS 7 packages, including SCL.
 - Remove deprecated pytiger.logging.legacy module.
 - Remove deprecated pytiger.nagios module.
+- Remove deprecated pytiger.monitoring.MonitoringCheck.warn method.
 
 * Tue Oct 24 2023 Chris Boot <crb@tiger-computing.co.uk> - 1.2.2-1
 - Add GitLab CI test runs and RPM building.

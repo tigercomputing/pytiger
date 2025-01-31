@@ -7,7 +7,6 @@
 
 import six
 import sys
-import warnings
 
 
 class MonitoringCheck(object):
@@ -98,17 +97,6 @@ class MonitoringCheck(object):
         outside acceptable parameters, but not service-affecting)
         """
         return self._transition(self.STATE_WARN, message)
-
-    def warn(self, message=None):
-        """
-        .. deprecated:: 1.2.0
-
-        Deprecated. This method was incorrectly named; use
-        :func:`warning` instead.
-        """
-        warnings.warn('warn() is deprecated, use warning() instead',
-                      DeprecationWarning)
-        return self.warning(message)
 
     def critical(self, message=None):
         """

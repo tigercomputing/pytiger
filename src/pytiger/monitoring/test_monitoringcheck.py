@@ -16,13 +16,6 @@ class TestMonitoringCheck(unittest.TestCase):
     def setUp(self):
         self.n = MonitoringCheck()
 
-    # Check deprecated function calls the real thing
-    @patch('warnings.warn')
-    def test_deprecated_warn(self, mock_warn):
-        self.n.warn()
-        self.assertTrue(mock_warn.called)
-        self.assertEqual(self.n.STATE_WARN, self.n.state)
-
     ####################
     @patch('sys.exit')
     def test_exit_unset(self, mock_exit):

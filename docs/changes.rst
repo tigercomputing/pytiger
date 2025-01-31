@@ -9,6 +9,7 @@ Release 2.0.0
  * Remove all CentOS 7 packages, including SCL.
  * Remove deprecated :mod:`pytiger.logging.legacy` module.
  * Remove deprecated :mod:`pytiger.nagios` module.
+ * Remove deprecated :func:`pytiger.monitoring.MonitoringCheck.warn` method.
 
 Release 1.2.2
 =============
