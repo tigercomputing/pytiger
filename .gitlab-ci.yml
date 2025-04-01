@@ -11,14 +11,6 @@ stages:
     - flake8 src/pytiger
     - pytest --cov pytiger src/pytiger
 
-build-py3.4:
-  <<: *build_template
-  image: python:3.4
-
-build-py3.5:
-  <<: *build_template
-  image: python:3.5
-
 build-py3.6:
   <<: *build_template
   image: python:3.6
