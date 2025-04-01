@@ -5,14 +5,18 @@ DPKG_EXPORT_BUILDFLAGS = 1
 include /usr/share/dpkg/default.mk
 
 export PYBUILD_NAME = pytiger
-export PYBUILD_TEST_NOSE = 1
 
 %:
-	dh $@  --with python2,python3,sphinxdoc --buildsystem=pybuild
+	dh $@ --buildsystem=pybuild
 
 override_dh_auto_build:
 	dh_auto_build
-	python3 setup.py build_sphinx
+	PYTHONPATH=. python3 -m sphinx -N -bhtml docs/ build/html
+
+execute_after_dh_auto_install:
+	# Exclude coverage from installing
+	rm -f debian/python3-pytiger/usr/lib/python3*/dist-packages/coverage.xml
+	rm -f debian/python3-pytiger/usr/lib/python3*/dist-packages/.coverage
 
 override_dh_auto_clean:
 	dh_auto_clean
