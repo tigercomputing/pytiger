@@ -8,20 +8,13 @@
 import unittest
 from mock import patch
 from .monitoringcheck import MonitoringCheck
-from six import StringIO
+from io import StringIO
 
 
 class TestMonitoringCheck(unittest.TestCase):
 
     def setUp(self):
         self.n = MonitoringCheck()
-
-    # Check deprecated function calls the real thing
-    @patch('warnings.warn')
-    def test_deprecated_warn(self, mock_warn):
-        self.n.warn()
-        self.assertTrue(mock_warn.called)
-        self.assertEqual(self.n.STATE_WARN, self.n.state)
 
     ####################
     @patch('sys.exit')

@@ -2,10 +2,6 @@
 `pytiger` uses the Python logging framework to generate messages and
 bubble them up through to handlers.
 
-The legacy :class:`pytiger.logging.legacy.LegacySyslogger` class replicates
-old behaviour for a managed transition to the full framework. It should not
-be used for new works.
-
 Quick Start
 -----------
 
@@ -21,5 +17,3 @@ The following snippet will cater for most simple uses::
     >>> log.error('Abandon ship, all ye who run this')
     E: Abandon ship, all ye who run this
 """
-
-__all__ = ['legacy']

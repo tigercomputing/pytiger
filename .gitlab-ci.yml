@@ -6,23 +6,10 @@ stages:
 .build_template: &build_template
   stage: build
   script:
-    - pip install -r requirements.txt
     - pip install coverage flake8 mock pytest pytest-cov
     # - python3 setup.py check -mrs
     - flake8 src/pytiger
-    - pytest --cov pytiger src/pytiger
-
-build-py2.7:
-  <<: *build_template
-  image: python:2.7
-
-build-py3.4:
-  <<: *build_template
-  image: python:3.4
-
-build-py3.5:
-  <<: *build_template
-  image: python:3.5
+    - pytest
 
 build-py3.6:
   <<: *build_template
@@ -52,11 +39,14 @@ build-py3.12:
   <<: *build_template
   image: python:3.12
 
+build-py3.13:
+  <<: *build_template
+  image: python:3.13
+
 pages:
   stage: build
-  image: python:3.12
+  image: python:3.13
   script:
-    - pip install -r requirements.txt
     - pip install sphinx
     - sphinx-build docs public
   artifacts:
@@ -105,13 +95,11 @@ rpm-source:
   before_script:
     - yum -y install
         epel-release
-        ${rpm_scl:+centos-release-scl}
     # https://wiki.rockylinux.org/rocky/repo/#notes-on-crb
     - /usr/bin/crb enable || true
     - yum -y install
         epel-rpm-macros
         rpm-build
-        ${rpm_scl:+${rpm_scl}-build}
     - |
       yum -y install $( \
         rpmbuild --rebuild *.src.rpm 2>&1 | \
@@ -126,16 +114,6 @@ rpm-source:
   artifacts:
     paths:
       - "*.rpm"
-
-epel-7-x86_64:
-  extends: .rpm-binary-template
-  image: centos:7
-
-epel-7-sclpy36-x86_64:
-  extends: .rpm-binary-template
-  image: centos:7
-  variables:
-    rpm_scl: rh-python36
 
 el-8-x86_64:
   extends: .rpm-binary-template

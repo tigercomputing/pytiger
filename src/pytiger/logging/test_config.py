@@ -11,12 +11,8 @@ from __future__ import absolute_import
 import logging
 import syslog
 import unittest
-from six import StringIO
-
-try:
-    from unittest.mock import call, patch
-except ImportError:
-    from mock import call, patch
+from io import StringIO
+from unittest.mock import call, patch
 
 from .config import LevelTagFilter, basic_config
 

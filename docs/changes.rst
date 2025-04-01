@@ -2,6 +2,17 @@
 Changes in pytiger
 ******************
 
+Release 2.0.0
+=============
+
+ * Drop Python 2 compatibility. The minimum supported Python version is now
+   3.6.
+ * Remove all CentOS 7 packages, including SCL.
+ * Remove deprecated :mod:`pytiger.logging.legacy` module.
+ * Remove deprecated :mod:`pytiger.nagios` module.
+ * Remove deprecated :func:`pytiger.monitoring.MonitoringCheck.warn` method.
+ * Fix :mod:`pytiger.logging.config` Python 3.13 compatibility.
+
 Release 1.2.2
 =============
 
