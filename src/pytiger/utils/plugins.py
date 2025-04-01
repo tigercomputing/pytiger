@@ -3,17 +3,22 @@
 A simple plugin loading mechanism
 """
 
-# Copyright © 2015 Tiger Computing Ltd
+# Copyright © 2015-2023 Tiger Computing Ltd
 # This file is part of pytiger and distributed under the terms
 # of a BSD-like license
 # See the file COPYING for details
 
-# Idea borrowed and adapted from:
+# Idea originally borrowed and adapted from:
 # https://copyninja.info/blog/dynamic-module-loading.html
 # http://stackoverflow.com/a/3381582
 
-import imp
+
 import os
+
+try:
+    from .plugins_importlib import _Plugin
+except ImportError:
+    from .plugins_imp import _Plugin
 
 
 def load(plugin_dir, package=__name__):
@@ -44,25 +49,27 @@ def load(plugin_dir, package=__name__):
     plugins = []
     for dirent in os.listdir(plugin_dir):
         # skip __init__.py
-        if dirent.startswith('__'):
+        if dirent.startswith("__"):
             continue
 
+        full_path = os.path.join(plugin_dir, dirent)
+
         # Load .py files as plugins
-        if dirent.endswith('.py'):
-            plugins.append(os.path.splitext(dirent)[0])
+        if dirent.endswith(".py"):
+            plugin_name = package + "." + os.path.splitext(dirent)[0]
+            plugins.append(_Plugin(plugin_name, full_path, plugin_dir))
             continue
 
         # Load directories containing __init__.py
-        full_path = os.path.join(plugin_dir, dirent)
         if os.path.isdir(full_path):
-            if os.path.isfile(os.path.join(full_path, '__init__.py')):
-                plugins.append(dirent)
+            plugin_name = package + "." + dirent
+            plugin_path = os.path.join(full_path, "__init__.py")
+            if os.path.isfile(plugin_path):
+                plugins.append(_Plugin(plugin_name, plugin_path, plugin_dir))
 
     # Now load the plugin modules
     modules = []
     for plugin in plugins:
-        f, path, desc = imp.find_module(plugin, [plugin_dir])
-        module = imp.load_module(package + '.' + plugin, f, path, desc)
-        modules.append(module)
+        modules.append(plugin.load())
 
     return modules

@@ -1,7 +1,9 @@
 .coverage
+.idea
 .pybuild
 *.pyc
 build/
 dist/
 docs/_build
 src/pytiger.egg-info
+venv
