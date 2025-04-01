@@ -1,3 +1,9 @@
+pytiger (2.0.0-1~tc12+1) bookworm-tcl; urgency=medium
+
+  * Rebuild for bookworm-tcl.
+
+ -- Chris Boot <crb@tiger-computing.co.uk>  Tue, 01 Apr 2025 17:31:00 +0100
+
 pytiger (2.0.0-1) unstable; urgency=medium
 
   * New upstream release
