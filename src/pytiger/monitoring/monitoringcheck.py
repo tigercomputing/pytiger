@@ -5,9 +5,7 @@
 # of a BSD-like license
 # See the file COPYING for details
 
-import six
 import sys
-import warnings
 
 
 class MonitoringCheck(object):
@@ -99,17 +97,6 @@ class MonitoringCheck(object):
         """
         return self._transition(self.STATE_WARN, message)
 
-    def warn(self, message=None):
-        """
-        .. deprecated:: 1.2.0
-
-        Deprecated. This method was incorrectly named; use
-        :func:`warning` instead.
-        """
-        warnings.warn('warn() is deprecated, use warning() instead',
-                      DeprecationWarning)
-        return self.warning(message)
-
     def critical(self, message=None):
         """
         Set the current state to **STATE_CRIT** from any other
@@ -138,5 +125,5 @@ class MonitoringCheck(object):
         """
         if self.state == self.STATE_UNSET and not self.messages:
             self.append('UNKNOWN: No state asserted')
-        six.print_(separator.join(self.messages))
+        print(separator.join(self.messages))
         sys.exit(self._exit_codes[self.state])
