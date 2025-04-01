@@ -1,3 +1,9 @@
+pytiger (2.0.0-1~tc11+1) bullseye-tcl; urgency=medium
+
+  * Rebuild for bullseye-tcl.
+
+ -- Chris Boot <crb@tiger-computing.co.uk>  Tue, 01 Apr 2025 17:33:16 +0100
+
 pytiger (2.0.0-1) unstable; urgency=medium
 
   * New upstream release
