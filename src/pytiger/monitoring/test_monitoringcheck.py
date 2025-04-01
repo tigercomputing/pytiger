@@ -8,20 +8,13 @@
 import unittest
 from mock import patch
 from .monitoringcheck import MonitoringCheck
-from six import StringIO
+from io import StringIO
 
 
 class TestMonitoringCheck(unittest.TestCase):
 
     def setUp(self):
         self.n = MonitoringCheck()
-
-    # Check deprecated function calls the real thing
-    @patch('warnings.warn')
-    def test_deprecated_warn(self, mock_warn):
-        self.n.warn()
-        self.assertTrue(mock_warn.called)
-        self.assertEqual(self.n.STATE_WARN, self.n.state)
 
     ####################
     @patch('sys.exit')
@@ -54,7 +47,7 @@ class TestMonitoringCheck(unittest.TestCase):
         with patch('sys.stdout', new=StringIO()) as out:
             self.n.exit()
         output = out.getvalue().strip()
-        self.assertEquals(output, 'line 1, line 2')
+        self.assertEqual(output, 'line 1, line 2')
 
     @patch('sys.exit')
     def test_exit_messages_custom_separator(self, mock_exit):
@@ -63,18 +56,18 @@ class TestMonitoringCheck(unittest.TestCase):
         with patch('sys.stdout', new=StringIO()) as out:
             self.n.exit(separator=";")
         output = out.getvalue().strip()
-        self.assertEquals(output, 'line 1;line 2')
+        self.assertEqual(output, 'line 1;line 2')
         with patch('sys.stdout', new=StringIO()) as out:
             self.n.exit(separator="\n")
         output = out.getvalue().strip()
-        self.assertEquals(output, 'line 1\nline 2')
+        self.assertEqual(output, 'line 1\nline 2')
 
     @patch('sys.exit')
     def test_exit_unset_nomessages(self, mock_exit):
         with patch('sys.stdout', new=StringIO()) as out:
             self.n.exit()
         output = out.getvalue().strip()
-        self.assertEquals(output, 'UNKNOWN: No state asserted')
+        self.assertEqual(output, 'UNKNOWN: No state asserted')
         mock_exit.assert_called_once_with(3)
 
     ####################

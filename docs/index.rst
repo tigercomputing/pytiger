@@ -14,7 +14,6 @@ Contents:
    introduction
    logging
    monitoring
-   nagios
    utils
 
    contributing

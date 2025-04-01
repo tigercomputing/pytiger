@@ -1,0 +1,124 @@
+---
+stages:
+  - build
+  - packages
+
+.build_template: &build_template
+  stage: build
+  script:
+    - pip install coverage flake8 mock pytest pytest-cov
+    # - python3 setup.py check -mrs
+    - flake8 src/pytiger
+    - pytest
+
+build-py3.6:
+  <<: *build_template
+  image: python:3.6
+
+build-py3.7:
+  <<: *build_template
+  image: python:3.7
+
+build-py3.8:
+  <<: *build_template
+  image: python:3.8
+
+build-py3.9:
+  <<: *build_template
+  image: python:3.9
+
+build-py3.10:
+  <<: *build_template
+  image: python:3.10
+
+build-py3.11:
+  <<: *build_template
+  image: python:3.11
+
+build-py3.12:
+  <<: *build_template
+  image: python:3.12
+
+build-py3.13:
+  <<: *build_template
+  image: python:3.13
+
+pages:
+  stage: build
+  image: python:3.13
+  script:
+    - pip install sphinx
+    - sphinx-build docs public
+  artifacts:
+    paths:
+      - public
+
+rpm-source:
+  stage: build
+  image: rockylinux:9
+  before_script:
+    - yum -y install
+        git
+        rpm-build
+  script:
+    - if [ -n "$CI_COMMIT_TAG" ]; then
+        rpm_version="$CI_COMMIT_TAG";
+        rpm_release="1%{?dist}";
+      else
+        rpm_version="$(git describe --always --abbrev=12 | sed s/-/_/g)";
+        rpm_release="0%{?dist}";
+      fi
+    - git archive
+        --prefix "pytiger-${rpm_version}/"
+        --output "pytiger-${rpm_version}.tar.gz"
+        $CI_COMMIT_SHA
+    - mkdir -p rpmbuild/{SOURCES,SRPMS}
+    - mv "pytiger-${rpm_version}.tar.gz" rpmbuild/SOURCES
+    - >-
+        sed -i
+        -e "s/^Version: .*\$/Version: ${rpm_version}/"
+        -e "s/^Release: .*\$/Release: ${rpm_release}/"
+        pytiger.spec
+    - rpmbuild -bs
+        --define="_topdir ${CI_PROJECT_DIR}/rpmbuild"
+        --define="dist .git"
+        pytiger.spec
+    - mv rpmbuild/SRPMS/*.src.rpm .
+  artifacts:
+    paths:
+      - "*.src.rpm"
+
+.rpm-binary-template:
+  stage: packages
+  variables:
+    GIT_STRATEGY: none
+  before_script:
+    - yum -y install
+        epel-release
+    # https://wiki.rockylinux.org/rocky/repo/#notes-on-crb
+    - /usr/bin/crb enable || true
+    - yum -y install
+        epel-rpm-macros
+        rpm-build
+    - |
+      yum -y install $( \
+        rpmbuild --rebuild *.src.rpm 2>&1 | \
+        awk '/is needed by/ { print $1 }')
+  script:
+    - mkdir -p rpmbuild/{SOURCES,SRPMS}
+    - rpmbuild --rebuild
+        --define="_topdir ${CI_PROJECT_DIR}/rpmbuild"
+        *.src.rpm
+    - rm -f *.src.rpm
+    - mv rpmbuild/RPMS/*/*.rpm .
+  artifacts:
+    paths:
+      - "*.rpm"
+
+el-8-x86_64:
+  extends: .rpm-binary-template
+  image: rockylinux:8
+
+el-9-x86_64:
+  extends: .rpm-binary-template
+  image: rockylinux:9

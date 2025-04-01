@@ -14,12 +14,8 @@ import sys
 import syslog
 import textwrap
 import unittest
-from six import StringIO
-
-try:
-    from unittest.mock import patch
-except ImportError:
-    from mock import patch
+from io import StringIO
+from unittest.mock import patch
 
 from .syslog import (
     PRIORITY_NAMES, FACILITY_NAMES, priority, facility, encode_priority,

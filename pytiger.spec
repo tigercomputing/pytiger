@@ -1,150 +1,67 @@
-%{?scl:%scl_package pytiger}
-%{!?scl:%global pkg_name %{name}}
-
-%if 0%{?rhel} && 0%{?rhel} <= 6
-%{!?__python2: %global __python2 /usr/bin/python2}
-%{!?python2_sitelib: %global python2_sitelib %(%{__python2} -c "from distutils.sysconfig import get_python_lib; print(get_python_lib())")}
-%{!?python2_sitearch: %global python2_sitearch %(%{__python2} -c "from distutils.sysconfig import get_python_lib; print(get_python_lib(1))")}
-%endif
-
-%if 0%{?scl:1}
-
-%if "%{scl}" == "python27"
-%global _want_python2 1
-%endif
-
-%if "%{scl}" == "rh-python34"
-%global _want_python3 1
-%endif
-
-%if "%{scl}" == "rh-python35"
-%global _want_python3 1
-%endif
-
-%if 0%{!?_want_python2:1} && 0%{!?_want_python3:1}
-%{error: dont know SCL %{scl}}
-%endif
-
-%else
-%global _want_python2 1
-%if 0%{?rhel} && 0%{?rhel} >= 7
-%global _want_python3 1
-%endif
-%endif
-
-%global _pkg_name pytiger
+%global pkg_name pytiger
+%global py_prefix python%{python3_pkgversion}
 %global sum Tiger Computing Ltd Python Utilities
 
-Name: %{?scl_prefix}%{_pkg_name}
+Name: %{pkg_name}
 Summary: %{sum}
-Version: 1.2.1
+Version: 1.2.2
 Release: 1%{?dist}
 
 Group: Development/Libraries
 License: BSD-3-clause
 Source0: %{pkg_name}-%{version}.tar.gz
-Url: https://github.com/tigercomputing/%{_pkg_name}
+Url: https://github.com/tigercomputing/%{pkg_name}
 
 BuildArch: noarch
 BuildRequires: epel-rpm-macros
-
-# Common requirements for all python2 packages
-%if 0%{?_want_python2:1}
-BuildRequires: %{?scl_prefix}python2-devel
-BuildRequires: %{?scl_prefix}python-setuptools
-%endif
-
-# Common requirements for all python3 packages
-%if 0%{?_want_python3:1}
-BuildRequires: python3-rpm-macros
-%endif
-
-# Requirements for SCL packages only
-%if 0%{?scl:1}
-BuildRequires: %{?scl_prefix}python-devel
-Requires: %{?scl_prefix}python-six
-%endif
-
-# Requirements for RHEL7 non-SCL only
-%if 0%{?rhel} && 0%{?rhel} >= 7 && 0%{!?scl:1}
-BuildRequires: python%{python3_pkgversion}-devel
-BuildRequires: python%{python3_pkgversion}-setuptools
-%endif
+BuildRequires: %{py_prefix}-devel
+BuildRequires: %{py_prefix}-setuptools
 
 %description
 This is the Tiger Computing Ltd Python Utility library, pytiger.
 
-%if 0%{?rhel} && 0%{!?scl:1}
-%package -n python2-%{_pkg_name}
+%package -n %{py_prefix}-%{pkg_name}
 Summary: %{sum}
-%{?python_provide:%python_provide python2-%{_pkg_name}}
-Requires: python-six
 
-%description -n python2-%{_pkg_name}
+%description -n %{py_prefix}-%{pkg_name}
 This is the Tiger Computing Ltd Python Utility library, pytiger.
-
-%if 0%{?rhel} >= 7
-%package -n python%{python3_pkgversion}-%{_pkg_name}
-Summary: %{sum}
-%{?python_provide:%python_provide python%{python3_pkgversion}-%{_pkg_name}}
-Requires: python%{python3_pkgversion}-six
-
-%description -n python%{python3_pkgversion}-%{_pkg_name}
-This is the Tiger Computing Ltd Python Utility library, pytiger.
-%endif
-
-%endif
-
-#%check
-#%{?scl:scl enable %{scl} - << \EOF}
-#%{__python2} setup.py nosetests
-#%{?scl:EOF}
 
 %prep
 %setup -n %{pkg_name}-%{version} -q
 
 %build
-%if 0%{?rhel} && 0%{?scl:1}
-%{?scl:scl enable %{scl} - << \EOF}
-%{?_want_python2:%{__python2} setup.py build ;}
-%{?_want_python3:%{__python3} setup.py build ;}
-%{?scl:EOF}
-%else
-%{?_want_python2:%py2_build}
-%{?_want_python3:%py3_build}
-%endif
+%{__python3} setup.py build
 
 %install
 rm -rf $RPM_BUILD_ROOT
-%if 0%{?rhel} && 0%{?scl:1}
-%{?scl:scl enable %{scl} - << \EOF}
-%{?_want_python2:%{__python2} setup.py install -O1 --root=$RPM_BUILD_ROOT}
-%{?_want_python3:%{__python3} setup.py install -O1 --root=$RPM_BUILD_ROOT}
-%{?scl:EOF}
-%else
-%{?_want_python2:%py2_install}
-%{?_want_python3:%py3_install}
-%endif
+%{__python3} setup.py install -O1 --skip-build --root $RPM_BUILD_ROOT
 
-%if 0%{?rhel} && 0%{?scl:1}
-
-%files
-%{?_want_python2:%{python2_sitelib}/*}
-%{?_want_python3:%{python3_sitelib}/*}
-
-%else
-
-%files -n python2-%{_pkg_name}
-%{python2_sitelib}/*
-
-%if 0%{?rhel} >= 7
-%files -n python%{python3_pkgversion}-%{_pkg_name}
+%files -n %{py_prefix}-%{pkg_name}
 %{python3_sitelib}/*
-%endif
-
-%endif
 
 %changelog
+* Fri Jan 31 2025 Chris Boot <crb@tiger-computing.co.uk> - 2.0.0-1
+- Drop Python 2 compatibility.
+- Remove all CentOS 7 packages, including SCL.
+- Remove deprecated pytiger.logging.legacy module.
+- Remove deprecated pytiger.nagios module.
+- Remove deprecated pytiger.monitoring.MonitoringCheck.warn method.
+- Fix pytiger.logging.config Python 3.13 compatbility.
+
+* Tue Oct 24 2023 Chris Boot <crb@tiger-computing.co.uk> - 1.2.2-1
+- Add GitLab CI test runs and RPM building.
+- Overhaul the RPM spec file completely.
+- Refactor pytiger.utils.plugins for Python 3.12.
+
+* Wed Jan 13 2021 Jonathan Wiltshire <jmw@tiger-computing.co.uk> - 1.2.1-4
+- Build for Python 3 by default, and Python 2 as an option.
+
+* Fri Apr 05 2019 Chris Boot <crb@tiger-computing.co.uk> - 1.2.1-3
+- Rename python-pytiger back to python2-pytiger for native Python 2.x builds.
+
+* Thu Apr 04 2019 Chris Boot <crb@tiger-computing.co.uk> - 1.2.1-2
+- Overhaul the RPM spec file completely.
+
 * Mon Jul 30 2018 Chris Boot <crb@tiger-computing.co.uk> - 1.2.1-1
 - Correct code examples and formatting in pytiger.logging.
 

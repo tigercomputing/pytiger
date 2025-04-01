@@ -1,3 +1,18 @@
+pytiger (2.0.0-1) unstable; urgency=medium
+
+  * New upstream release
+  * Set priority optional
+  * Set myself as Maintainer
+  * Add Homepage field
+  * Standards version 4.7.0
+  * Set Rules-Requires-Root: no
+  * Debhelper compat level 13
+  * Remove Python 2 packaging
+  * Use pytest instead of nose for tests
+  * Correct sphinx documentation build
+
+ -- Chris Boot <crb@tiger-computing.co.uk>  Tue, 01 Apr 2025 17:23:55 +0100
+
 pytiger (1.2.1-2~bpo11~tcl1) bullseye-tcl; urgency=medium
 
   * Backport for bullsye-tcl
