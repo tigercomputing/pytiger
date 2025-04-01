@@ -9,7 +9,7 @@ stages:
     - pip install coverage flake8 mock pytest pytest-cov
     # - python3 setup.py check -mrs
     - flake8 src/pytiger
-    - pytest --cov pytiger src/pytiger
+    - pytest
 
 build-py3.6:
   <<: *build_template
