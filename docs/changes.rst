@@ -2,6 +2,11 @@
 Changes in pytiger
 ******************
 
+Release 2.0.1
+=============
+
+ * Fix Read the Docs documentation builds.
+
 Release 2.0.0
 =============
 
