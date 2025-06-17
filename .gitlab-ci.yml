@@ -122,3 +122,7 @@ el-8-x86_64:
 el-9-x86_64:
   extends: .rpm-binary-template
   image: rockylinux:9
+
+el-10-x86_64:
+  extends: .rpm-binary-template
+  image: almalinux:10
