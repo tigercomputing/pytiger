@@ -4,7 +4,7 @@
 
 Name: %{pkg_name}
 Summary: %{sum}
-Version: 1.2.2
+Version: 2.0.1
 Release: 1%{?dist}
 
 Group: Development/Libraries
@@ -40,6 +40,9 @@ rm -rf $RPM_BUILD_ROOT
 %{python3_sitelib}/*
 
 %changelog
+* Tue Jun 17 2025 Chris Boot <crb@tiger-computing.co.uk> - 2.0.1-1
+- Add EL10 builds.
+
 * Fri Jan 31 2025 Chris Boot <crb@tiger-computing.co.uk> - 2.0.0-1
 - Drop Python 2 compatibility.
 - Remove all CentOS 7 packages, including SCL.

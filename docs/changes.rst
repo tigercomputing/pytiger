@@ -6,6 +6,7 @@ Release 2.0.1
 =============
 
  * Fix Read the Docs documentation builds.
+ * Add EL10 builds.
 
 Release 2.0.0
 =============
