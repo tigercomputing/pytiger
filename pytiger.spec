@@ -6,7 +6,7 @@
 
 Name: %{pkg_name}
 Summary: %{sum}
-Version: 2.0.1
+Version: 2.0.2
 Release: 1%{?dist}
 
 Group: Development/Libraries
@@ -44,6 +44,9 @@ rm -rf $RPM_BUILD_ROOT
 %{python3_sitelib}/*
 
 %changelog
+* Tue Aug 12 2025 Chris Boot <crb@tiger-computing.co.uk> - 2.0.2-1
+- Add SLES15 builds.
+
 * Tue Jun 17 2025 Chris Boot <crb@tiger-computing.co.uk> - 2.0.1-1
 - Add EL10 builds.
 

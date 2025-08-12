@@ -2,6 +2,11 @@
 Changes in pytiger
 ******************
 
+Release 2.0.2
+=============
+
+ * Add SLES15 builds.
+
 Release 2.0.1
 =============
 
