@@ -126,3 +126,14 @@ el-9-x86_64:
 el-10-x86_64:
   extends: .rpm-binary-template
   image: almalinux:10
+
+opensuse-15-x86_64:
+  extends: .rpm-binary-template
+  image: opensuse/leap:15
+  before_script:
+    - zypper -qnt install
+        rpm-build
+    - |
+      zypper -qnt install $( \
+        rpmbuild --rebuild *.src.rpm 2>&1 | \
+        awk '/is needed by/ { print $1 }')
