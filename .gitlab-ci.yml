@@ -57,7 +57,7 @@ rpm-source:
   stage: build
   image: almalinux:10
   before_script:
-    - yum -y install
+    - dnf -y install
         git
         rpm-build
   script:
@@ -93,15 +93,15 @@ rpm-source:
   variables:
     GIT_STRATEGY: none
   before_script:
-    - yum -y install
+    - dnf -y install
         epel-release
     # https://wiki.rockylinux.org/rocky/repo/#notes-on-crb
     - /usr/bin/crb enable || true
-    - yum -y install
+    - dnf -y install
         epel-rpm-macros
         rpm-build
     - |
-      yum -y install $( \
+      dnf -y install $( \
         rpmbuild --rebuild *.src.rpm 2>&1 | \
         awk '/is needed by/ { print $1 }')
   script:
