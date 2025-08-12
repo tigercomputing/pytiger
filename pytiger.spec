@@ -1,10 +1,12 @@
+%{!?python3_pkgversion: %global python3_pkgversion 3}
+
 %global pkg_name pytiger
 %global py_prefix python%{python3_pkgversion}
 %global sum Tiger Computing Ltd Python Utilities
 
 Name: %{pkg_name}
 Summary: %{sum}
-Version: 2.0.1
+Version: 2.0.2
 Release: 1%{?dist}
 
 Group: Development/Libraries
@@ -13,8 +15,10 @@ Source0: %{pkg_name}-%{version}.tar.gz
 Url: https://github.com/tigercomputing/%{pkg_name}
 
 BuildArch: noarch
+%if 0%{?rhel}
 BuildRequires: epel-rpm-macros
 BuildRequires: %{py_prefix}-devel
+%endif
 BuildRequires: %{py_prefix}-setuptools
 
 %description
@@ -40,6 +44,9 @@ rm -rf $RPM_BUILD_ROOT
 %{python3_sitelib}/*
 
 %changelog
+* Tue Aug 12 2025 Chris Boot <crb@tiger-computing.co.uk> - 2.0.2-1
+- Add SLES15 builds.
+
 * Tue Jun 17 2025 Chris Boot <crb@tiger-computing.co.uk> - 2.0.1-1
 - Add EL10 builds.
 
