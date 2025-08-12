@@ -55,7 +55,7 @@ pages:
 
 rpm-source:
   stage: build
-  image: rockylinux:9
+  image: almalinux:10
   before_script:
     - yum -y install
         git
